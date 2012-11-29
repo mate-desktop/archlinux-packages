@@ -1,7 +1,7 @@
 #Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 
 pkgname=mate-file-manager-open-terminal
-pkgver=1.2.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="An extension for opening terminals in arbitrary local paths"
 arch=('i686' 'x86_64')
@@ -12,8 +12,8 @@ makedepends=('pkgconfig' 'intltool')
 install=mate-file-manager-open-terminal.install
 options=('!libtool')
 group=('mate-extras')
-source=(http://pub.mate-desktop.org/releases/1.2/$pkgname-$pkgver.tar.xz)
-sha256sums=('0d2e252c292f75eb07b6ca39c171ee984b0c2b51af2b2bd17772137cb0dbeeca')
+source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
+sha256sums=('740f115b3473b584d4501a09df0e2f8557d5cfe4e1bffbc054b984bf850ffc17')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
@@ -27,10 +27,6 @@ build() {
 
 package() {
 	cd "$srcdir/$pkgname-$pkgver"
-	make MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="$pkgdir" install || return 1
 
-	install -m755 -d ${pkgdir}/usr/share/mateconf/schemas
-
-	mateconf-merge-schema ${pkgdir}/usr/share/mateconf/schemas/${pkgname}.schemas --domain ${pkgname} ${pkgdir}/etc/mateconf/schemas/*.schemas || return 1
-	rm -f ${pkgdir}/etc/mateconf/schemas/*.schemas
+	make DESTDIR="${pkgdir}" install || return 1
 }

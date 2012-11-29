@@ -1,7 +1,7 @@
 #Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 
 pkgname=mate-icon-theme
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="MATE icon theme"
 arch=('any')
@@ -10,8 +10,8 @@ depends=('hicolor-icon-theme' 'icon-naming-utils' 'gtk-update-icon-cache')
 makedepends=('intltool')
 url="http://mate-desktop.org"
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.4/$pkgname-$pkgver.tar.xz)
-sha256sums=('6b76013c4690d9f1b28e7ecf746bb5138f93fdb59ec39e75e720c840870d9889')
+source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
+sha256sums=('eeef9345a1db19f51134e0a89d2b79b40676b0f59867b215c52fb1613656e713')
 
 install=mate-icon-theme.install
 

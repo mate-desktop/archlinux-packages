@@ -1,7 +1,7 @@
 #Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 
 pkgname=mate-file-manager
-pkgver=1.4.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc="The MATE shell and file manager"
 arch=('i686' 'x86_64')
@@ -12,8 +12,8 @@ makedepends=('pkgconfig' 'intltool')
 url="http://mate-desktop.org"
 options=('!libtool' '!emptydirs')
 install=mate-file-manager.install
-source=(http://pub.mate-desktop.org/releases/1.4/$pkgname-$pkgver.tar.xz)
-sha256sums=('cc70fbc72614f068fd8dd2aa8d3d9fe68d3f45da17671e20b1dfe8f70c6a2132')
+source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
+sha256sums=('6a88572aad25f68711c67fe5e6de0502a96ac0c550d9b49e5a91af513ce2617d')
 
 groups=('mate')
 
@@ -35,10 +35,5 @@ build() {
 package() {
     cd "${srcdir}/$pkgname-$pkgver"
 
-    make MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install || return 1
-
-    install -m755 -d ${pkgdir}/usr/share/mateconf/schemas
-
-    mateconf-merge-schema ${pkgdir}/usr/share/mateconf/schemas/${pkgname}.schemas --domain ${pkgname} ${pkgdir}/etc/mateconf/schemas/*.schemas || return 1
-    rm -f ${pkgdir}/etc/mateconf/schemas/*.schemas
+    make DESTDIR="${pkgdir}" install || return 1
 }
