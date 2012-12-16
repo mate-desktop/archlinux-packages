@@ -6,12 +6,12 @@ pkgrel=1
 pkgdesc="Provides access to weather information from the net"
 arch=('i686' 'x86_64')
 license=('LGPL')
-depends=('mate-conf') #  'libsoup-mate'  'mate-icon-theme'
+depends=() #  'libsoup-mate'  'mate-icon-theme'
 makedepends=('pkgconfig' 'intltool' 'gtk-doc')
 groups=('mate')
 options=('!emptydirs' '!libtool')
 url="http://mate-desktop.org"
-install=libmateweather.install
+#install=libmateweather.install
 source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
 sha256sums=('993470eeed40cd8c5b414d68affbe45c4e9c54d0e67c7b57ac6fa3b3cea970f0')
 
@@ -30,9 +30,5 @@ build() {
 package() {
     cd "${srcdir}/$pkgname-$pkgver"
 
-    make MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install || return 1
-
-    install -m755 -d "${pkgdir}/usr/share/mateconf/schemas"
-    mateconf-merge-schema "${pkgdir}/usr/share/mateconf/schemas/${pkgname}.schemas" --domain libmateweather ${pkgdir}/etc/mateconf/schemas/*.schemas || return 1
-    rm -f ${pkgdir}/etc/mateconf/schemas/*.schemas
+    make DESTDIR="${pkgdir}" install || return 1
 }

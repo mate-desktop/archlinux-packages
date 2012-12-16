@@ -6,12 +6,12 @@ pkgrel=1
 pkgdesc="MATE keyboard library"
 arch=('i686' 'x86_64')
 license=('LGPL')
-depends=('libxklavier' 'mate-conf') #  'dconf'
+depends=('libxklavier') #  'dconf'
 makedepends=('intltool' 'pkgconfig')
 groups=('mate')
 url="http://mate-desktop.org"
 options=('!emptydirs' '!libtool')
-install=libmatekbd.install
+#install=libmatekbd.install
 source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
 sha256sums=('2dbe88bef0fe340605123cf7506b4bd668d17deb31cf719d5eebe289da987b3d')
 
@@ -26,9 +26,6 @@ build() {
 
 package() {
     cd "${srcdir}/$pkgname-$pkgver"
-    make MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install
 
-    install -m755 -d "${pkgdir}/usr/share/mateconf/schemas"
-    mateconf-merge-schema "${pkgdir}/usr/share/mateconf/schemas/${pkgname}.schemas" --domain ${pkgname} ${pkgdir}/etc/mateconf/schemas/*.schemas || return 1
-    rm -f ${pkgdir}/etc/mateconf/schemas/*.schemas
+    make DESTDIR="${pkgdir}" install || return 1
 }
