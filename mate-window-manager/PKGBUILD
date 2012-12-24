@@ -1,25 +1,24 @@
 #Mantainer: Giovanni Ricciardi <kar98k.sniper@gmail.com>
 
 pkgname=mate-window-manager
-pkgver=1.4.0
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="A window manager for MATE"
 arch=(i686 x86_64)
 license=('GPL')
-depends=('mate-conf' 'mate-dialogs' 'libgtop' 'libwnck') #  'libcanberra' 'startup-notification'
+depends=('mate-dialogs' 'libgtop' 'libwnck') #  'libcanberra' 'startup-notification'
 makedepends=('intltool' 'pkgconfig' 'mate-doc-utils')
 options=('!emptydirs' '!libtool')
-install=mate-window-manager.install
+#install=mate-window-manager.install
 url="http://mate-desktop.org"
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.4/$pkgname-$pkgver.tar.xz
+source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz
         metacity-restartstyle.patch)
-sha256sums=('6b231038d3786706cf0715f5de00953ca481d9eeb7a47908354a5731c544d7ef'
-            'ea2450ca3e4fb59166ec18ff4844cc61cb16865880dc6b125078a3ab47bf2caf')
+sha256sums=('e625aeeaa1ee88295e0a89c3b249cb0914b7902314ec3d0d1ee9b64ccf7f9702' 'ea2450ca3e4fb59166ec18ff4844cc61cb16865880dc6b125078a3ab47bf2caf')
 
 build() {
     cd "${srcdir}/$pkgname-$pkgver"
-    patch -Np1 -i "${srcdir}/metacity-restartstyle.patch" || return 1
+    #patch -Np1 -i "${srcdir}/metacity-restartstyle.patch" || return 1
     ./autogen.sh \
         --prefix=/usr \
         --sysconfdir=/etc \
@@ -34,9 +33,5 @@ build() {
 package() {
     cd "${srcdir}/$pkgname-$pkgver"
 
-    make MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install || return 1
-
-    install -m755 -d "${pkgdir}/usr/share/mateconf/schemas"
-    mateconf-merge-schema "${pkgdir}/usr/share/mateconf/schemas/${pkgname}.schemas" --domain ${pkgname} ${pkgdir}/etc/mateconf/schemas/*.schemas
-    rm -f ${pkgdir}/etc/mateconf/schemas/*.schemas
+    make DESTDIR="${pkgdir}" install || return 1
 }
