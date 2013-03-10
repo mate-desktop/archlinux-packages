@@ -15,8 +15,8 @@ depends=('libmatenotify' 'mate-file-manager' 'dropbox' 'hicolor-icon-theme')
 makedepends=('docutils' 'python2' 'pygtk')
 install=$pkgname.install
 options=('!libtool' '!emptydirs')
-source=(http://pub.mate-desktop.com/releases/1.2/$pkgname-$pkgver.tar.xz)
-md5sums=('c7e53b04adb87501578db9e6b2db31b0')
+source=(http://pub.mate-desktop.com/releases/1.4/$pkgname-$pkgver.tar.xz)
+sha256sums=('7989ce7d71c746104242c3d91d20788938f7bda532b7077193fca6be1cf69760')
 
 build() {
   cd "$srcdir/$pkgname-$pkgver/"
