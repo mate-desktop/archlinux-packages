@@ -1,7 +1,7 @@
 #Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 
 pkgname=mate-media
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc="MATE Media Tools"
 arch=(i686 x86_64)
@@ -13,7 +13,7 @@ options=(!emptydirs !libtool)
 url="http://mate-desktop.org"
 install=mate-media.install
 source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
-sha256sums=('443e800aa61babbe57334f27785afb6507658a8d0ed936a78da8145555f58cbb')
+sha256sums=('c76abdf5eeb2794087252c2c2d08b8a0d2da7bbf9e6d4f8cfcd207d7439c4b06')
 
 build() {
 	cd "${srcdir}/${pkgname}-$pkgver"
