@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 url="http://mate-desktop.org"
 license=('GPL')
 depends=('gtk2' 'dbus' 'mate-desktop')
-makedepends=('pkgconfig' 'intltool' 'mate-doc-utils' 'glib2*)
+makedepends=('pkgconfig' 'intltool' 'mate-doc-utils' 'glib2')
 options=('!libtool' '!emptydirs')
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz
 		mate-screensaver.pam)
