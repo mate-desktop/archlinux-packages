@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc="Description: MATE Window Navigator Construction Kit. A library to use for writing pagers and task lists."
 arch=('i686' 'x86_64')
 license=('LGPL')
-depends=('gtk-doc' 'glib2' 'gtk2' 'libx11' 'libxres' 'libxt' 'libxres' 'mate-common' 'glib' 'gobject-introspection' 'startup-notification' )
+depends=('gtk-doc' 'glib2' 'gtk2' 'libx11' 'libxres' 'libxt' 'libxres' 'mate-common' 'gobject-introspection' 'startup-notification' )
 
 url="http://mate-desktop.org"
 groups=('mate')
