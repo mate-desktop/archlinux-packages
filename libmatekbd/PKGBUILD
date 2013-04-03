@@ -12,7 +12,7 @@ makedepends=('intltool' 'pkgconfig')
 groups=('mate')
 url="http://mate-desktop.org"
 options=('!emptydirs' '!libtool')
-#install=libmatekbd.install
+install=libmatekbd.install
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
 sha256sums=('0f0fe82c71ddcb8d9e1e266b9240dcd1ac8761ab2f217949577bce227a5ab00f')
 

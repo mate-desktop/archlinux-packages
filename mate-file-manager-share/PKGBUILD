@@ -3,8 +3,8 @@
 
 # TO  BE  EDITED!!!! IT WORK, OTHERWISE!
 
-pkgname=mate-user-share
-pkgver=1.5.0
+pkgname=mate-file-manager-share
+pkgver=1.6.0
 pkgrel=1
 pkgdesc=""
 arch=('i686' 'x86_64')
@@ -16,9 +16,9 @@ options=(!emptydirs)
 replace=('')
 conflicts=('')
 url="http://mate-desktop.org"
-install=mate-applets.install
-source=(http://pub.mate-desktop.org/releases/1.5/$pkgname-$pkgver.tar.xz)
-sha256sums=('')
+install=mate-file-manager-share.install
+source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
+md5sums=('70a7a02fee63ae358e7e4d943f9206c5')
 
 build() {
     cd "${srcdir}/$pkgname-$pkgver"
@@ -41,9 +41,5 @@ build() {
 
 package() {
     cd "${srcdir}/$pkgname-$pkgver"
-    make MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1 DESTDIR="${pkgdir}" install || return 1
-
-    install -m755 -d "${pkgdir}/usr/share/mateconf/schemas"
-    mateconf-merge-schema "${pkgdir}/usr/share/mateconf/schemas/${pkgname}.schemas" --domain ${pkgname} ${pkgdir}/etc/mateconf/schemas/*.schemas || return 1
-    rm -f ${pkgdir}/etc/mateconf/schemas/*.schemas
+    make DESTDIR="${pkgdir}" install || return 1
 }

@@ -14,7 +14,6 @@ depends=(               'mate-panel'
                'libgtop>=2'
                'gtk2'
                'mate-doc-utils'
-               'gnome-doc-utils'
                'wireless_tools'
                'mate-common')
                

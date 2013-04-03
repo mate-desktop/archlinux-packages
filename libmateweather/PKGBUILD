@@ -12,7 +12,7 @@ makedepends=('pkgconfig' 'intltool' 'gtk-doc')
 groups=('mate')
 options=('!emptydirs' '!libtool')
 url="http://mate-desktop.org"
-#install=libmateweather.install
+install=libmateweather.install
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
 sha256sums=('ccb9595a8f1b97f64ca82730ee715110fbfad42014dcac288fe65d654f082264')
 
