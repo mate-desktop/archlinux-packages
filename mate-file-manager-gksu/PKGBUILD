@@ -18,6 +18,7 @@ sha256sums=('deef71c2aabb6185eaab59b375f3b672748d08c945a78c7d87b0c6f0c432aebe')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+	sed -i s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/ configure.ac #FIXME: >1.6.0
 	./autogen.sh --prefix=/usr 
 
 	#fix non-standard directory

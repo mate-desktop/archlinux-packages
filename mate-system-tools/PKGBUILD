@@ -7,7 +7,7 @@ pkgdesc="An extension for opening terminals in arbitrary local paths"
 arch=('i686' 'x86_64')
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
 license=('GPL')
-depends=('mate-file-manager')
+depends=('mate-file-manager' 'liboobs' 'system-tools-backends')
 makedepends=('pkgconfig' 'intltool')
 install=mate-system-tools.install
 options=('!libtool')
@@ -17,6 +17,8 @@ sha256sums=('3e545ae4462332cd4e4b1c0b2f0e41a7fbacbb86be3e95254155e92ed249a14a')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+	sed -i s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/ configure.in #FIXME: >1.6.0
+	sed -i s/AM_PROG_CC_STDC/AC_PROG_CC/ configure.in #FIXME: >1.6.0
 	./autogen.sh --prefix=/usr 
 
 	#fix non-standard directory

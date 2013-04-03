@@ -22,6 +22,7 @@ md5sums=('ee26e90c51aa0d1f04d66cb2daf50fca')
 
 build() {
     cd "${srcdir}/$pkgname-$pkgver"
+    sed -i s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/ configure.in #FIXME: >1.6.0
     PYTHON=/usr/bin/python2 ./autogen.sh \
         --prefix=/usr \
         --sysconfdir=/etc \

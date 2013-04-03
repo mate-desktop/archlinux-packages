@@ -37,21 +37,21 @@ listofpackages=(
     mate-calc
     mate-character-map
     mate-document-viewer
-    #mate-file-manager-gksu # automake-1.13 fail
+    mate-file-manager-gksu # automake-1.13 issue
     mate-file-manager-image-converter
     mate-file-manager-open-terminal
     mate-file-manager-sendto
-    #mate-file-manager-share # automake-1.13 fail
+    mate-file-manager-share
     mate-icon-theme-faenza
     #mate-indicator-applet # not in archlinux-packages yet
     mate-menu-editor
     #mate-netbook # not in archlinux-packages yet
     mate-netspeed
     mate-sensors-applet
-    #mate-system-tools # automake-1.13 fail
+    #mate-system-tools # automake-1.13 issue, missing libboobs and system-tools-backends
     mate-terminal
     mate-text-editor
-    #mate-user-share # automake-1.13 fail
+    mate-user-share # automake-1.13 issue
     mate-utils
     #python-caja # not in archlinux-packages yet
     libindicator # not a MATE 1.6 package
