@@ -1,0 +1,31 @@
+#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+
+pkgname=mate-character-map
+pkgver=1.6.0
+pkgrel=1
+pkgdesc="MATE Unicode Charmap"
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('hicolor-icon-theme')
+makedepends=('mate-doc-utils' 'pkgconfig' 'intltool')
+groups=('mate-extra')
+url="http://mate-desktop.org"
+install='mate-character-map.install'
+source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
+sha256sums=('14a18a02db1a7a966d74229350eec64468e0aaf47ec5726a1b2042def9719635')
+
+build()
+{
+cd "${srcdir}/${pkgname}-$pkgver"
+bash autogen.sh --prefix=/usr --sysconfdir=/etc \
+	--localstatedir=/var --disable-static \
+	--disable-scrollkeeper || return 1
+make || return 1
+}
+
+
+package()
+{
+cd "${srcdir}/${pkgname}-$pkgver"
+make DESTDIR="${pkgdir}" install || return 1
+}

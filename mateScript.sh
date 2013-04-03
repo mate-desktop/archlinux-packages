@@ -2,54 +2,62 @@
 set -e
 
  #working sometimes :D  I have to code something to handle missing dependencies
- 
+
 listofpackages=(
-    libmatewnck
     mate-common
     mate-doc-utils
-    mate-corba
-    mate-conf
-    libmatecomponent
-    mate-mime-data
-    mate-vfs
-    libmate
-    libmatecanvas
-    libmatecomponentui
+    mate-desktop
     libmatekeyring
     mate-keyring
-    libmateui
-    libindicator
-    libmatenotify
     libmatekbd
+    libmatewnck
     libmateweather
     mate-icon-theme
     mate-dialogs
-    mate-desktop
     mate-file-manager
-    mate-notification-daemon
-    mate-backgrounds
-    mate-menus
-    mate-window-manager
     mate-polkit
+    mate-window-manager
     mate-settings-daemon
-    mate-control-center
-    mate-panel
     mate-session-manager
+    mate-menus
+    mate-panel
+    mate-backgrounds
     mate-themes
-    mate-text-editor
+    mate-notification-daemon
+    mate-image-viewer
+    mate-control-center
+    mate-screensaver
     mate-file-archiver
-    mate-document-viewer
-    mate-file-manager-sendto
-    mate-bluetooth
+    mate-media
     mate-power-manager
-    python-corba
-    python-mate
-    python-mate-desktop
-    python-caja
-    mate-file-manager-open-terminal
+    mate-system-monitor
+    #caja-dropbox # fail
     mate-applets
+    mate-bluetooth
+    mate-calc
+    mate-character-map
+    mate-document-viewer
+    #mate-file-manager-gksu # automake-1.13 fail
+    mate-file-manager-image-converter
+    mate-file-manager-open-terminal
+    mate-file-manager-sendto
+    #mate-file-manager-share # automake-1.13 fail
+    mate-icon-theme-faenza
+    #mate-indicator-applet # not in archlinux-packages yet
+    mate-menu-editor
+    #mate-netbook # not in archlinux-packages yet
+    mate-netspeed
+    mate-sensors-applet
+    #mate-system-tools # automake-1.13 fail
+    mate-terminal
+    mate-text-editor
+    #mate-user-share # automake-1.13 fail
+    mate-utils
+    #python-caja # not in archlinux-packages yet
+    libindicator # not a MATE 1.6 package
+    #mate-display-manager # not a MATE 1.6 package # fail
     )
-    
+
 
 for package in ${listofpackages[@]}
 	do
@@ -67,11 +75,9 @@ for package in ${listofpackages[@]}
 
 				if [ $newver == $installedver ]
 						then  echo "!****! The same version of package $package is already  installed,skipping...."
-						
 				fi
 			fi
 	else (echo "---------- START Making ->  $package -------------------" && makepkg --asroot ) && sudo pacman -U --noconfirm $package-*.pkg.tar.xz
-			
 	fi
 
 #break if there is some error
@@ -81,11 +87,8 @@ for package in ${listofpackages[@]}
   fi
 
 
-	
 echo "-----> Done building & installing $package"
 echo " "
 
 cd ..
 done
-    
-    
