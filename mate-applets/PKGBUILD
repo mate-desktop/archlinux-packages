@@ -8,7 +8,7 @@ pkgdesc="Applets for MATE panel"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('gstreamer0.10-base-plugins' 'mate-panel' 'libgtop' 'libnotify'
-         'libmatewnck')
+         'libmatewnck' 'libmateweather' )
 makedepends=('mate-doc-utils' 'pkgconfig' 'mate-settings-daemon' 'intltool'
               'mate-icon-theme' 'networkmanager') # 'mate-python-desktop' 'mate-character-map'
 groups=('mate-extras')
