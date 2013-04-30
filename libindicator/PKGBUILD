@@ -3,7 +3,7 @@ pkgname=libindicator
 pkgver=0.4.1
 pkgrel=2
 pkgdesc="A set of symbols and convience functions that all indicators would like to use"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="https://launchpad.net/libindicator"
 license=('GPL')
 makedepends=('gtk2>=2.18')

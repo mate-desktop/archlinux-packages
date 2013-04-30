@@ -2,7 +2,7 @@
 #Contributor: Xpander <xpander0@gmail.com>
 
 pkgname=mate-doc-utils
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="Documentation utilities for MATE"
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('pkgconfig' 'intltool' 'mate-common')
 options=('!emptydirs' '!libtool')
 url="http://mate-desktop.org"
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('72e63fa3226f36646146562b3705aae93651eee6ac3ca31c5bcdf80afafdd768')
+sha256sums=('96a3b8dd1350d6531e9ddd1ca47eefe6881551b5ac5fb225bd41d2bec8aaf5eb')
 
 groups=('mate')
 

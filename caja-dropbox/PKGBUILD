@@ -9,7 +9,7 @@ pkgname=caja-dropbox
 pkgver=0.7.1
 pkgrel=1
 pkgdesc="Dropbox for Linux - Caja extension"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://forums.dropbox.com/topic.php?id=21111"
 license=('custom:CC-BY-ND-3' 'GPL')
 depends=('libnotify' 'mate-file-manager' 'dropbox' 'hicolor-icon-theme')

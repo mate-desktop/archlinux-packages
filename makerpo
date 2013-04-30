@@ -97,7 +97,7 @@ mr_list() {
 }
 
 #-----------------------------------------------------------------------------
-# Clean binary build files in package tree."
+# Clean binary build files in package tree.
 mr_clean() {
   cd $BASEDIR
   DIRS=$(find . -maxdepth 1 -type d | sed s@./@@)
@@ -197,6 +197,7 @@ mr_update() {
 }
 
 #-----------------------------------------------------------------------------
+# Build Mate packages.
 mr_build() {
   for PKG in ${BUILD_ORDER[@]}
   do

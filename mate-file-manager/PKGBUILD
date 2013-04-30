@@ -5,7 +5,7 @@ pkgname=mate-file-manager
 pkgver=1.6.1
 pkgrel=1
 pkgdesc="The MATE shell and file manager"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
 depends=('libexif' 'exempi' 'mate-icon-theme' 'shared-mime-info'
          'desktop-file-utils' 'gvfs' 'libunique' 'mate-desktop')

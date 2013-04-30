@@ -5,7 +5,7 @@ pkgname=mate-calc
 pkgver=1.6.0
 pkgrel=1
 pkgdesc="Calculator for the Mate desktop environment"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL' 'GPL')
 depends=('gtk2' 'libxml2' 'libpng' 'freetype2' 'flex' 'bison' 'pixman' 'glib2' 'pango' 'gdk-pixbuf2' 
 'cairo' 'atk')

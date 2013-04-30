@@ -5,7 +5,7 @@ pkgname=libmatewnck
 pkgver=1.6.0
 pkgrel=1
 pkgdesc="Description: MATE Window Navigator Construction Kit. A library to use for writing pagers and task lists."
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL')
 depends=('gtk-doc' 'glib2' 'gtk2' 'libx11' 'libxres' 'libxt' 'libxres' 'mate-common' 'gobject-introspection' 'startup-notification' )
 
