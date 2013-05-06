@@ -8,8 +8,8 @@ pkgrel=1
 pkgdesc="Archive manipulator for MATE"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('desktop-file-utils' 'glib2' 'hicolor-icon-theme')
-makedepends=('mate-doc-utils' 'intltool')
+depends=('desktop-file-utils' 'dconf' 'gtk2' 'hicolor-icon-theme')
+makedepends=('mate-common' 'mate-doc-utils' 'intltool')
 conflicts=('file-roller' 'file-roller2' 'mate-extract')
 optdepends=('unrar: for RAR uncompression'
 'zip: for ZIP archives' 'unzip: for ZIP archives'
