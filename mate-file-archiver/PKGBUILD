@@ -1,10 +1,11 @@
-# Contributor: Alessio Sergi <asergi at archlinux dot us>
 # Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Alessio Sergi <asergi at archlinux dot us>
 # Contributor: Xpander <xpander0@gmail.com>
+# Contributor: hekel <hekel(at)archlinux.info>
 
 pkgname=mate-file-archiver
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Archive manipulator for MATE"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
@@ -19,11 +20,14 @@ options=('!libtool' '!emptydirs')
 install=mate-file-archiver.install
 url="http://mate-desktop.org"
 groups=('mate-extras')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('b959c41d1c86991e4f72224df0519bf0aaccfdd49afd8e799268b779ce9d2285')
+source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz
+	fr-rpm-bsdtar.patch)
+sha256sums=('b959c41d1c86991e4f72224df0519bf0aaccfdd49afd8e799268b779ce9d2285'
+            '1b7b6a631fc6821d3aa7cdac1c7273a906c48c60c3a559a3d49937c13b49675a')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+	patch -Np1 -i "${srcdir}/fr-rpm-bsdtar.patch"
   ./autogen.sh --prefix=/usr \
 		--disable-static \
 		--localstatedir=/var \
@@ -35,14 +39,10 @@ build() {
 	mate-doc-prepare --force
 	autoreconf -i
 	aclocal
-
 	make
 }
 
 package() {
     cd "${srcdir}/$pkgname-$pkgver"
-
     make DESTDIR="$pkgdir/" install
 }
-
-# vim:set ts=2 sw=2 et:
