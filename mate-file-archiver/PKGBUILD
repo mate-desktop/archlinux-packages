@@ -23,7 +23,7 @@ groups=('mate-extras')
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz
 	fr-rpm-bsdtar.patch)
 sha256sums=('b959c41d1c86991e4f72224df0519bf0aaccfdd49afd8e799268b779ce9d2285'
-            '1b7b6a631fc6821d3aa7cdac1c7273a906c48c60c3a559a3d49937c13b49675a')
+            '68d3fac0a5ac1928b7e1b9833b0d226b6b0d7f50ac560fc2a5f2551d23dabb3d')
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
