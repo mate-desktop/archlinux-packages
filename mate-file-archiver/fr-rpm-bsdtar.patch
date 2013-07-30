@@ -9,7 +9,7 @@ This patch was created for Arch Linux, however should work on any system that ha
 
 Index: src/commands/rpm2cpio.c
 ================================
---- mate-file-archiver-1.6.0/src/commands/rpm2cpio.c  2013-03-31
+--- mate-file-archiver-1.6.0/src/commands/rpm2cpio.c 2013-03-31
 +++ mate-file-archiver-1.6.0/src/commands/rpm2cpio.c	2013-07-26
 @@ -128,7 +128,7 @@
  		archive_command = "bzip2 -dc";
