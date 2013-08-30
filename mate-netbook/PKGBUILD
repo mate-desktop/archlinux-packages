@@ -3,7 +3,7 @@
 pkgname=mate-netbook
 pkgver=1.6.0
 pkgrel=1
-pkgdesc=""
+pkgdesc="A simple window management tool."
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
 license=('GPL')

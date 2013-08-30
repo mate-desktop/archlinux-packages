@@ -2,7 +2,7 @@
 
 pkgname=mate-screensaver
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Screensaver for MATE'
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
@@ -15,7 +15,7 @@ source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz
 install=mate-screensaver.install
 sha256sums=('b04801e68d013c899cdfefceed25e28040c21197a2da40cd650be52ac643843c'
             '2744d1fc39da46fc681b7cf1c9230d2035b2bb8d9f510213fbe439c114eb76a2')
-
+groups=('mate-extras')
 build() {
 	# this is a hack for tarballs on github
 	cd $srcdir/${pkgname}-$pkgver
