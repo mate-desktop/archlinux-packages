@@ -3,8 +3,8 @@
 
 pkgname=mate-netspeed
 pkgver=1.6.0
-pkgrel=1
-pkgdesc=""
+pkgrel=2
+pkgdesc="Netspeed is a MATE-applet that shows how much traffic occurs on a specified network device."
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
 license=('GPL')

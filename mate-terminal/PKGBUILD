@@ -2,11 +2,11 @@
 
 pkgname=mate-terminal
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Terminal Emulator"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dconf' 'vte')
+depends=('vte')
 makedepends=('pkgconfig' 'mate-doc-utils' 'intltool' 'mate-common')
 options=('!emptydirs' '!libtool')
 install=mate-terminal.install

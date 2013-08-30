@@ -3,7 +3,7 @@
 
 pkgname=mate-file-manager-open-terminal
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An extension for opening terminals in arbitrary local paths"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"

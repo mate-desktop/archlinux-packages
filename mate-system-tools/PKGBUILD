@@ -2,7 +2,7 @@
 
 pkgname=mate-system-tools
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An extension for opening terminals in arbitrary local paths"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
@@ -11,7 +11,7 @@ depends=('mate-file-manager' 'liboobs' 'system-tools-backends')
 makedepends=('pkgconfig' 'intltool')
 install=mate-system-tools.install
 options=('!libtool')
-group=('mate-extras')
+groups=('mate-extras')
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
 sha256sums=('3e545ae4462332cd4e4b1c0b2f0e41a7fbacbb86be3e95254155e92ed249a14a')
 

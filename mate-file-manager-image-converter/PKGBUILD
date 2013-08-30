@@ -3,7 +3,7 @@
 
 pkgname=mate-file-manager-image-converter
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An extension for opening terminals in arbitrary local paths"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
@@ -12,7 +12,7 @@ depends=('mate-file-manager')
 makedepends=('pkgconfig' 'intltool')
 install=mate-file-manager-image-converter.install
 options=('!libtool')
-group=('mate-extras')
+groups=('mate-extras')
 source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
 sha256sums=('d71cc0cc81768666b7349558db3ba49064b941e815016c98a55a055ffad4799a')
 
