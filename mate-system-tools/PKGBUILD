@@ -2,7 +2,7 @@
 
 pkgname=mate-system-tools
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An extension for opening terminals in arbitrary local paths"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
@@ -16,13 +16,10 @@ source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
 sha256sums=('3e545ae4462332cd4e4b1c0b2f0e41a7fbacbb86be3e95254155e92ed249a14a')
 
 build() {
-	cd "$srcdir/$pkgname-$pkgver"
-	./autogen.sh --prefix=/usr 
-
-	#fix non-standard directory
-	sed -i 's|${prefix}/etc|/etc|' Makefile
-
-	make || return 1
+    cd "$srcdir/$pkgname-$pkgver"
+    ./autogen.sh
+    ./configure --prefix=/usr --sysconfdir=/etc LIBS="-lm"
+    make || return 1
 }
 
 package() {

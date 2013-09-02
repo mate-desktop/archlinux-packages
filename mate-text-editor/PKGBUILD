@@ -2,12 +2,12 @@
 
 pkgname=mate-text-editor
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An powerfull text editor for MATE"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
 depends=('gtk2' 'gtksourceview2' 'libxml2' 'pygtksourceview2')
-makedepends=('pkgconfig' 'mate-doc-utils' 'intltool')
+makedepends=('enchant' 'pkgconfig' 'mate-doc-utils' 'intltool')
 options=('!emptydirs' '!libtool')
 conflicts=('pluma')
 url="http://mate-desktop.org"

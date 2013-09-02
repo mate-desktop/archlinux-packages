@@ -48,7 +48,7 @@ MATE_BUILD_ORDER=(
   mate-netbook
   mate-netspeed
   mate-sensors-applet
-  #mate-system-tools # fail; linker flag -lm missing
+  mate-system-tools
   mate-terminal
   mate-text-editor
   mate-user-share
