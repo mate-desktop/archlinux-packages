@@ -31,7 +31,7 @@ MATE_BUILD_ORDER=(
   #mate-media-gstreamer # fail
   mate-power-manager
   mate-system-monitor
-  #caja-dropbox # fail; package is also in AUR
+  caja-dropbox
   mate-applets
   mate-calc
   mate-character-map

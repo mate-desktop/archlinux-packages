@@ -4,55 +4,44 @@
 # Contributor: neuromante <lorenzo.nizzi.grifi@gmail.com>
 # Contributor: Gordin <9ordin @t gmail.com>
 # Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=caja-dropbox
 pkgver=0.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Dropbox for Linux - Caja extension"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://forums.dropbox.com/topic.php?id=21111"
 license=('custom:CC-BY-ND-3' 'GPL')
-depends=('libnotify' 'mate-file-manager' 'dropbox' 'hicolor-icon-theme')
+depends=('libnotify' 'mate-file-manager' 'hicolor-icon-theme')
 makedepends=('python2-docutils' 'python2' 'pygtk')
+optdepends=('dropbox: Dropbox support')
 install=$pkgname.install
 options=('!libtool' '!emptydirs')
-source=(http://pub.mate-desktop.com/releases/1.4/$pkgname-$pkgver.tar.xz)
+source=(http://pub.mate-desktop.org/releases/1.4/$pkgname-$pkgver.tar.xz)
 sha256sums=('7989ce7d71c746104242c3d91d20788938f7bda532b7077193fca6be1cf69760')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver/"
-  
-  sed -i "s/| python/|python2/" configure.in
-  sed -i "s/\[python\]/[python2]/" configure.in
-
-  sed -i "s/| python/|python2/" configure
-  sed -i "s/set dummy python/set dummy python2/" configure
-  sed -i 's|$(top_builddir)/libtool|libtool|' configure
-
-  sed -i 's|$(top_builddir)/libtool|libtool|' aclocal.m4
-  sed -i "s|/usr/bin/python|/usr/bin/python2|" dropbox.in
-  sed -i "s|env python|env python2|" rst2man.py
-  sed -i 's|python |python2 |' Makefile.am
-  sed -i 's|python |python2 |' Makefile.in
-
-   ./autogen.sh \
+    cd "$srcdir/$pkgname-$pkgver/"
+    sed -i "s/python/python2/" configure.in dropbox.in Makefile.am rst2man.py
+    ./autogen.sh \
         --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
         --disable-static \
-        --libexecdir=/usr/lib/libmate \
-        --disable-canberra \
-        --disable-schemas-install || return 1
+        --libexecdir=/usr/lib/libmate || return 1
 
-  ./configure --prefix=/usr --sysconfdir=/etc
-  make
+    ./configure --prefix=/usr --sysconfdir=/etc
+    make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver/"
-  make DESTDIR="$pkgdir" install
-  rm "$pkgdir/usr/bin/dropbox"
-  rm "$pkgdir/usr/share/applications/dropbox.desktop"
-  rmdir "$pkgdir/usr/share/applications"
-  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+    cd "${pkgname}-${pkgver}/"
+    make DESTDIR="${pkgdir}" install
+    # install the common license
+    install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
+    # remove executables and optdepend on 'dropbox' package in AUR
+    rm "${pkgdir}/usr/bin/dropbox"
+    rm "${pkgdir}/usr/share/applications/dropbox.desktop"
+    rm "${pkgdir}/usr/share/man/man1/dropbox.1"
 }
