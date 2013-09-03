@@ -1,28 +1,31 @@
 #Contributor: Xpander <xpander0@gmail.com>
+#Contributor: Martin Wimpress <code@flexion.org>
 
-pkgname=python-caja
+pkgname=python2-caja
+_pkgname=python-caja
 pkgver=1.6.0
-pkgrel=1
-pkgdesc=""
+pkgrel=2
+pkgdesc="Python binding for Caja, to allow Caja property page and menu item extensions to be written in Python."
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
 license=('GPL')
-groups=()
-depends=('mate-file-manager' 'mate-common')
-               
-install=$pkgname.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('2a696f24dd3b34609117d66ac4a768409419964fa21db300bdb19d042e513990') 
+groups=('mate-extras')
+depends=('mate-file-manager' 'mate-common' 'python2-gobject2')
+makedepends=('pygobject2-devel')
+replaces=('python-caja')
+provides=('python-caja')
+options=('!libtool')
+source=(http://pub.mate-desktop.org/releases/1.6/$_pkgname-$pkgver.tar.xz)
+sha256sums=('2a696f24dd3b34609117d66ac4a768409419964fa21db300bdb19d042e513990')
 
 build() {
-cd $srcdir/$pkgname-$pkgver
- 
-  ./autogen.sh LDFLAGS="-lm" --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib/$pkgname \
-  --disable-static --disable-scrollkeeper
-  make
+    cd $srcdir/$_pkgname-$pkgver
+    ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+    --disable-static PYTHON=python2 LDFLAGS="-lm"
+    make
 }
 
 package() {
-  cd "$srcdir/$pkgname-$pkgver"
+  cd "$srcdir/$_pkgname-$pkgver"
   make DESTDIR="$pkgdir/" install
 }

@@ -53,7 +53,7 @@ MATE_BUILD_ORDER=(
   mate-text-editor
   mate-user-share
   mate-utils
-  #python-caja # fail; cannot find python headers
+  python-caja
 )
 
 AUR_BUILD_ORDER=(
