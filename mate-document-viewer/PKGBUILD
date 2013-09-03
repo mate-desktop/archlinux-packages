@@ -1,17 +1,18 @@
 #Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 #Contributor: Xpander <xpander0@gmail.com>
+#Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-document-viewer
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Simply a document viewer"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
 depends=('gtk2' 'libspectre' 'gsfonts' 'poppler-glib' 'djvulibre' 'mate-icon-theme'
-         't1lib' 'libmatekeyring' 'desktop-file-utils' 'texlive-bin') #  'dconf' 'gsettings-desktop-schemas'
+         't1lib' 'libsecret' 'desktop-file-utils' 'libgxps') #  'dconf' 'gsettings-desktop-schemas'
 makedepends=('mate-doc-utils' 'mate-file-manager' 'intltool'
-             'gobject-introspection' 'gtk-doc')
+             'gobject-introspection' 'gtk-doc' 'texlive-bin')
 optdepends=('texlive-bin: DVI support')
 groups=('mate-extras')
 install=mate-document-viewer.install
@@ -21,6 +22,8 @@ sha256sums=('100feb278bb919de874e76bd2344cb49fa60e2819e98b1394226086e34bf59ce')
 
 build() {
     cd "${srcdir}/$pkgname-$pkgver"
+    # Avoid link error : http://paste.mate-desktop.org/view/2f157646
+    sed -i 's/-latrildocument//' atril-document.pc.in
 
     ./configure \
         --prefix=/usr \
@@ -36,11 +39,10 @@ build() {
         --enable-t1lib \
         --enable-comics \
         --enable-pixbuf \
-        --enable-impress \
+        --enable-xps \
         --disable-scrollkeeper \
         --enable-introspection \
-        --disable-schemas-compile \
-        --disable-schemas-install || return 1
+        --disable-schemas-compile || return 1
 
     make || return 1
 }
@@ -52,4 +54,4 @@ package() {
 
     ln -s atril ${pkgdir}/usr/bin/mate-document-viewer
 
-}    
+}
