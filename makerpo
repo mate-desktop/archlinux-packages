@@ -223,7 +223,7 @@ mr_build() {
     NEW_VER=$(echo ${NEW_VER}-${NEW_REL})
 
     if [ ! -f *$NEW_VER*.pkg.tar.xz ]; then
-      makepkg -s
+      makepkg -s --noconfirm --needed 2>&1 | tee build.log
       if [ "$?" -ne 0 ]; then
         printf '\e[1;34m======> \e[1;31mBuilding "%s" failed.\e[0m\n' "$(basename $PKG)"
         printf "Continue with package tree? [Y/n] "
@@ -240,7 +240,7 @@ mr_build() {
         printf 'Proceed to install "%s"? [Y/n] ' "$(basename $PKG)"
         read
         if [ "$REPLY" != "n" ] && [ "$REPLY" != "N" ]; then
-          sudo pacman -U $(ls *$NEW_VER*.pkg.tar.xz --color=none -t -1 | head -n 1)
+          sudo pacman -U --noconfirm $(ls *$NEW_VER*.pkg.tar.xz --color=none -t -1 | head -n 1)
         fi
       fi
     fi
@@ -253,14 +253,15 @@ mr_build() {
 # Remove Mate packages and orphan dependencies from system.
 mr_remove() {
   PKG_LIST=$(pacman -Qq)
-
-  for PKG in ${BUILD_ORDER[@]}
+  RM_PKG=""
+  for PKG in ${MATE_BUILD_ORDER[@]}
   do
+    echo $PKG
     if [ -n "$(echo $PKG_LIST | grep $PKG)" ]; then
-      RM_PKG=$(echo $RM_PKG $PKG)
+      RM_PKG="$RM_PKG $PKG"
     fi
   done
-  pacman -Rs $RM_PKG
+  sudo pacman -Rs $RM_PKG
 }
 
 #-----------------------------------------------------------------------------
