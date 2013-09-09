@@ -66,283 +66,287 @@ AUR_BUILD_ORDER=(
 #-----------------------------------------------------------------------------
 # Shows help message.
 mr_help() {
-  echo "makerpo 2013.08.27 - Repository build script for Mate."
-  echo
-  echo "Usage: ./makerpo [option]"
-  echo
-  echo "Options:"
-  echo "-c, --clean    Clean binary build files."
-  echo "-b, --build    Build Mate packages."
-  echo "-d, --delete   Delete all binary package files."
-  echo "-h, --help     Shows this help message."
-  echo "-l, --list     Show which packages remain to be built."
-  echo "-r, --remove   Remove Mate packages and dependencies."
-  echo "-u, --update   Update package tree."
-  echo "-p, --purge    Purge outdated source code."
-  echo
-  echo 'clean:     Perform "maintainer-clean" throughout the package tree.'
-  echo 'delete:    Delete "pkg" directories and ".pkg.tar.xz" files from the'
-  echo "           the package tree."
-  echo 'remove:    Perform "pacman -Rs" on installed packages,'
-  echo "           corresponding to package names in the package tree."
-  echo 'purge:     Purge outdated ".tar.xz" source packages and extracted'
-  echo '           packages in "../src" keeping latest versions.'
+    echo "$(basename ${0}) 2013.09.04 - Repository build script for Mate."
+    echo
+    echo "Usage: $(basename ${0}) -t [task]"
+    echo
+    echo "Options:"
+    echo "-a  Enable automatic mode"
+    echo "-h  Shows this help message."
+    echo "-t  Provide a task to run which can be one of:"
+    echo "      c|clean    Clean binary build files."
+    echo "      b|build    Build Mate packages."
+    echo "      d|delete   Delete all binary package files."
+    echo "      l|list     Show which packages remain to be built."
+    echo "      h|remove   Remove Mate packages and dependencies."
+    echo "      u|update   Update package tree."
+    echo "      p|purge    Purge outdated source code."
+    echo
+    echo 'clean:     Perform "maintainer-clean" throughout the package tree.'
+    echo 'delete:    Delete "pkg" directories and ".pkg.tar.xz" files from the'
+    echo "           the package tree."
+    echo 'remove:    Perform "pacman -Rs" on installed packages,'
+    echo "           corresponding to package names in the package tree."
+    echo 'purge:     Purge outdated ".tar.xz" source packages and extracted'
+    echo '           packages in "../src" keeping latest versions.'
+    exit 1
 }
 
 #-----------------------------------------------------------------------------
 # Show which packages remain to be built.
 mr_list() {
-  cd $BASEDIR
-  DIRS=$(find . -mindepth 1 -maxdepth 1 -type d)
-
-  for DIR in $DIRS
-  do
-   PKG=$(find $DIR -mindepth 1 -maxdepth 1 -name *.pkg.tar.xz)
-   if [[ "$PKG" != *xz* &&  $(basename $DIR) != ".git"  && $(basename $DIR) != "aur" ]]; then
-    basename $DIR
-   fi
-  done
+    cd $BASEDIR
+    DIRS=$(find . -mindepth 1 -maxdepth 1 -type d)
+    for DIR in $DIRS; do
+        PKG=$(find $DIR -mindepth 1 -maxdepth 1 -name *.pkg.tar.xz)
+        if [[ "$PKG" != *xz* &&  $(basename $DIR) != ".git"  && $(basename $DIR) != "aur" ]]; then
+            basename $DIR
+        fi
+    done
 }
 
 #-----------------------------------------------------------------------------
 # Clean binary build files in package tree.
 mr_clean() {
-  cd $BASEDIR
-  DIRS=$(find ./aur -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
-  DIRS="$DIRS $(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)"
+    cd $BASEDIR
+    DIRS=$(find ./aur -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
+    DIRS="$DIRS $(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)"
 
-  for DIR in $DIRS
-  do
-   if [ -d $BASEDIR/$DIR/src ]; then
-     cd $BASEDIR/$DIR/src
-      SDIRS=$(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
-      for SDIR in $SDIRS
-      do
-        if [ -e $BASEDIR/$DIR/src/$SDIR/Makefile ]; then
-          printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
-          cd $BASEDIR/$DIR/src/$SDIR
-          make maintainer-clean &> /dev/null
-          cd $BASEDIR
+    for DIR in $DIRS; do
+        if [ -d $BASEDIR/$DIR/src ]; then
+            cd $BASEDIR/$DIR/src
+            SDIRS=$(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
+            for SDIR in $SDIRS; do
+                if [ -e $BASEDIR/$DIR/src/$SDIR/Makefile ]; then
+                    printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
+                    cd $BASEDIR/$DIR/src/$SDIR
+                    make maintainer-clean &> /dev/null
+                    cd $BASEDIR
+                fi
+            done
         fi
-      done
-    fi
-  done
+    done
 }
 
 #-----------------------------------------------------------------------------
 # Delete all binary package files in package tree.
 mr_delete() {
-  cd $BASEDIR
-  DIRS=$(find ./aur -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
-  DIRS="$DIRS $(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)"
+    cd $BASEDIR
+    DIRS=$(find ./aur -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
+    DIRS="$DIRS $(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)"
 
-  for DIR in $DIRS
-  do
-    cd $BASEDIR/$DIR
-    if [ -n "$(find . -mindepth 1 -maxdepth 1 -type d -name pkg)" ] || [ -n "$(find . -mindepth 1 -maxdepth 1 -type f -name *.pkg.tar.xz)" ]; then
-      printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
-      rm -rf $(find . -mindepth 1 -maxdepth 1 -type d -name pkg)
-      rm -f $(find . -mindepth 1 -maxdepth 1 -type f -name \*.pkg.tar.xz)
-    fi
-  done
+    for DIR in $DIRS; do
+        cd $BASEDIR/$DIR
+        if [ -n "$(find . -mindepth 1 -maxdepth 1 -type d -name pkg)" ] || [ -n "$(find . -mindepth 1 -maxdepth 1 -type f -name *.pkg.tar.xz)" ]; then
+            printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
+            rm -rf $(find . -mindepth 1 -maxdepth 1 -type d -name pkg)
+            rm -f $(find . -mindepth 1 -maxdepth 1 -type f -name \*.pkg.tar.xz)
+        fi
+    done
 }
 
 #-----------------------------------------------------------------------------
 # Update package tree.
 mr_update() {
-  cd $BASEDIR
-  DIRS=$(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
+    cd $BASEDIR
+    DIRS=$(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
 
-  for DIR in $DIRS
-  do
-    if [ -e $BASEDIR/$DIR/PKGBUILD ] && [ "$DIR" != "mate-media-gstreamer" ]; then
-      cd $BASEDIR/$DIR
+    for DIR in $DIRS; do
+        if [ -e $BASEDIR/$DIR/PKGBUILD ] && [ "$DIR" != "mate-media-gstreamer" ]; then
+            cd $BASEDIR/$DIR
 
-      # Spider crawling for latest package.
-      N=0
-      RSLT=0
-      while [ $RSLT == 0 ]
-      do
-        wget -q --spider http://pub.mate-desktop.org/releases/$MATE_VER/${DIR}-$MATE_VER.$N.tar.xz
-        RSLT=$?
-        N=$((N+1))
-      done
-      N=$((N-2))
+            # Spider crawling for latest package.
+            N=0
+            RSLT=0
+            while [ $RSLT == 0 ]; do
+                wget -q --spider http://pub.mate-desktop.org/releases/$MATE_VER/${DIR}-$MATE_VER.$N.tar.xz
+                RSLT=$?
+                N=$((N+1))
+            done
+            N=$((N-2))
 
-      # Package should exist online and not in current directory.
-      wget -q --spider http://pub.mate-desktop.org/releases/$MATE_VER/${DIR}-$MATE_VER.$N.tar.xz
-      RSLT=$?
-      if [ ! -e $BASEDIR/$DIR/${DIR}-$MATE_VER.${N}.tar.xz ] && [ $RSLT == 0 ]; then
-        # Download latest package.
-        wget -q http://pub.mate-desktop.org/releases/$MATE_VER/${DIR}-$MATE_VER.$N.tar.xz
-        unset HASH
-        if [ -z "$(cat PKGBUILD | grep $(sha256sum ${DIR}-$MATE_VER.$N.tar.xz | cut -d ' ' -f1))" ] && [ -n "$(cat PKGBUILD | grep sha256sum)" ]; then HASH="sha256"; fi
-        if [ -z "$(cat PKGBUILD | grep $(md5sum ${DIR}-$MATE_VER.$N.tar.xz | cut -d ' ' -f1))" ] && [ -n "$(cat PKGBUILD | grep md5sum)" ]; then HASH="md5"; fi
-        if [[ "$HASH" == "md5" || "$HASH" == "sha256" ]]; then
-          # New hash found, proceed with update.
-          printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
-          sed -i s/pkgver=.*$/pkgver=$MATE_VER.$N/ PKGBUILD
-          sed -i s@.org/releases/[0-9].[0-9]@.org/releases/${MATE_VER}@ PKGBUILD
-          awk -v newsums="$(makepkg -g)" '
-          BEGIN {
-            if (!newsums) exit 1
-          }
-          /^[[:blank:]]*(md|sha)[[:digit:]]+sums=/,/\)[[:blank:]]*$/ {
-            if (!i) print newsums; i++
-            next
-          }
+            # Package should exist online and not in current directory.
+            wget -q --spider http://pub.mate-desktop.org/releases/$MATE_VER/${DIR}-$MATE_VER.$N.tar.xz
+            RSLT=$?
+            if [ ! -e $BASEDIR/$DIR/${DIR}-$MATE_VER.${N}.tar.xz ] && [ $RSLT == 0 ]; then
+                # Download latest package.
+                wget -q http://pub.mate-desktop.org/releases/$MATE_VER/${DIR}-$MATE_VER.$N.tar.xz
+                unset HASH
+                if [ -z "$(cat PKGBUILD | grep $(sha256sum ${DIR}-$MATE_VER.$N.tar.xz | cut -d ' ' -f1))" ] && [ -n "$(cat PKGBUILD | grep sha256sum)" ]; then HASH="sha256"; fi
+                if [ -z "$(cat PKGBUILD | grep $(md5sum ${DIR}-$MATE_VER.$N.tar.xz | cut -d ' ' -f1))" ] && [ -n "$(cat PKGBUILD | grep md5sum)" ]; then HASH="md5"; fi
+                if [[ "$HASH" == "md5" || "$HASH" == "sha256" ]]; then
+                    # New hash found, proceed with update.
+                    printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
+                    sed -i s/pkgver=.*$/pkgver=$MATE_VER.$N/ PKGBUILD
+                    sed -i s@.org/releases/[0-9].[0-9]@.org/releases/${MATE_VER}@ PKGBUILD
+                    awk -v newsums="$(makepkg -g)" '
+                    BEGIN {
+                        if (!newsums) exit 1
+                    }
+                    /^[[:blank:]]*(md|sha)[[:digit:]]+sums=/,/\)[[:blank:]]*$/ {
+                    if (!i) print newsums; i++
+                        next
+                    }
 
-          1
-          ' PKGBUILD > PKGBUILD.new && mv PKGBUILD{.new,}
-          # Clean for new build.
-          rm -rf ./pkg
-          rm -rf ./src
-          SPKGS=$(find . -maxdepth 1 -type f -name \*.tar.xz | grep [0-9].tar.xz)
-          rm -f $SPKGS
+                    1
+                    ' PKGBUILD > PKGBUILD.new && mv PKGBUILD{.new,}
+                    # Clean for new build.
+                    rm -rf ./pkg
+                    rm -rf ./src
+                    SPKGS=$(find . -maxdepth 1 -type f -name \*.tar.xz | grep [0-9].tar.xz)
+                    rm -f $SPKGS
+                fi
+            fi
         fi
-      fi
-    fi
-  done
+    done
 }
 
 #-----------------------------------------------------------------------------
 # Build Mate packages.
 mr_build() {
-  BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
-  for PKG in ${BUILD_ORDER[@]}
-  do
-    cd $BASEDIR/$PKG
-    printf "\e[1;34m======> $(basename $PKG)\e[0m\n"
+    BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
+    for PKG in ${BUILD_ORDER[@]}; do
+        cd $BASEDIR/$PKG
+        printf "\e[1;34m======> $(basename $PKG)\e[0m\n"
 
-    CUR_VER=$(pacman -Q | grep `basename $PKG`)
-    CUR_VER=$(echo $CUR_VER | cut -d ' ' -f2)
-    NEW_VER=$(cat PKGBUILD | grep pkgver=)
-    NEW_VER=$(echo $NEW_VER | cut -d = -f2)
-    NEW_REL=$(cat PKGBUILD | grep pkgrel=)
-    NEW_REL=$(echo $NEW_REL | cut -d = -f2)
-    NEW_VER=$(echo ${NEW_VER}-${NEW_REL})
+        CUR_VER=$(pacman -Q | grep `basename $PKG`)
+        CUR_VER=$(echo $CUR_VER | cut -d ' ' -f2)
+        NEW_VER=$(cat PKGBUILD | grep pkgver=)
+        NEW_VER=$(echo $NEW_VER | cut -d = -f2)
+        NEW_REL=$(cat PKGBUILD | grep pkgrel=)
+        NEW_REL=$(echo $NEW_REL | cut -d = -f2)
+        NEW_VER=$(echo ${NEW_VER}-${NEW_REL})
 
-    if [ ! -f *$NEW_VER*.pkg.tar.xz ]; then
-      makepkg -s --noconfirm --needed 2>&1 | tee build.log
-      if [ "$?" -ne 0 ]; then
-        printf '\e[1;34m======> \e[1;31mBuilding "%s" failed.\e[0m\n' "$(basename $PKG)"
-        printf "Continue with package tree? [Y/n] "
-        read
-        if [[ "$REPLY" = "n" || "$REPLY" = "N" ]]; then
-         exit 1
+        if [ ! -f *$NEW_VER*.pkg.tar.xz ]; then
+            makepkg -s --noconfirm --needed 2>&1 | tee build.log
+            if [ "$?" -ne 0 ]; then
+                printf '\e[1;34m======> \e[1;31mBuilding "%s" failed.\e[0m\n' "$(basename $PKG)"
+                if [ ${AUTOMATE} -eq 0 ]; then
+                    printf "Continue with package tree? [Y/n] "
+                    read
+                    if [[ "$REPLY" = "n" || "$REPLY" = "N" ]]; then
+                        exit 1
+                    fi
+                else
+                    sleep 5
+                fi
+            fi
         fi
-      fi
-    fi
 
-    if [ -f *$NEW_VER*.pkg.tar.xz ]; then
-      if [[ "$CUR_VER" != "$NEW_VER" ]]; then
-        printf '\e[1;34m======> \e[1;31mPackage tree might depend on new "%s".\e[0m\n' "$(basename $PKG)"
-        printf 'Proceed to install "%s"? [Y/n] ' "$(basename $PKG)"
-        read
-        if [ "$REPLY" != "n" ] && [ "$REPLY" != "N" ]; then
-          sudo pacman -U --noconfirm $(ls *$NEW_VER*.pkg.tar.xz --color=none -t -1 | head -n 1)
+        if [ -f *$NEW_VER*.pkg.tar.xz ]; then
+            if [[ "$CUR_VER" != "$NEW_VER" ]]; then
+                printf '\e[1;34m======> \e[1;31mPackage tree might depend on new "%s".\e[0m\n' "$(basename $PKG)"
+                INSTALL_IT=1
+                if [ ${AUTOMATE} -eq 0 ]; then
+                    printf 'Proceed to install "%s"? [Y/n] ' "$(basename $PKG)"
+                    read
+                    if [ "$REPLY" != "n" ] && [ "$REPLY" != "N" ]; then
+                        INSTALL_IT=0
+                    fi
+                else
+                    sleep 5
+                fi
+
+                if [ ${INSTALL_IT} -eq 1 ]; then
+                    sudo pacman -U --noconfirm $(ls *$NEW_VER*.pkg.tar.xz --color=none -t -1 | head -n 1)
+                    if [ "$?" -ne 0 ]; then
+                        printf '\e[1;34m======> \e[1;31mInstalling "%s" failed.\e[0m\n' "$(basename $PKG)"
+                        exit 1
+                    fi
+                fi
+            fi
         fi
-      fi
-    fi
-
-  done
-  exit 0
+    done
+    exit 0
 }
 
 #-----------------------------------------------------------------------------
 # Remove Mate packages and orphan dependencies from system.
 mr_remove() {
-  PKG_LIST=$(pacman -Qq)
-  RM_PKG=""
-  for PKG in ${MATE_BUILD_ORDER[@]}
-  do
-    echo $PKG
-    if [ -n "$(echo $PKG_LIST | grep $PKG)" ]; then
-      RM_PKG="$RM_PKG $PKG"
-    fi
-  done
-  sudo pacman -Rs $RM_PKG
+    PKG_LIST=$(pacman -Qq)
+    RM_PKG=""
+    for PKG in ${MATE_BUILD_ORDER[@]}; do
+        if [ -n "$(echo $PKG_LIST | grep $PKG)" ]; then
+            RM_PKG="$RM_PKG $PKG"
+        fi
+    done
+    sudo pacman -Rs $RM_PKG
 }
 
 #-----------------------------------------------------------------------------
 # Purge outdated source code, keeping latest version.
 mr_purge() {
-  cd $BASEDIR
-  DIRS=$(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
+    cd $BASEDIR
+    DIRS=$(find . -mindepth 1 -maxdepth 1 -type d | sed s@./@@)
 
-  for DIR in $DIRS
-  do
-    if [ -e $BASEDIR/$DIR/PKGBUILD ]; then
-      cd $BASEDIR/$DIR
-      PURGE=false
+    for DIR in $DIRS; do
+        if [ -e $BASEDIR/$DIR/PKGBUILD ]; then
+            cd $BASEDIR/$DIR
+            PURGE=false
 
-      # Purge outdated source packages
-      SPKGS=$(find . -maxdepth 1 -type f -name \*.tar.xz | grep [0-9].tar.xz | sort | head -n -1 )
-      if [ -n "$SPKGS" ]; then
-        PURGE=true
-        rm $SPKGS
-      fi
+            # Purge outdated source packages
+            SPKGS=$(find . -maxdepth 1 -type f -name \*.tar.xz | grep [0-9].tar.xz | sort | head -n -1 )
+            if [ -n "$SPKGS" ]; then
+                PURGE=true
+                rm $SPKGS
+            fi
 
-      # Purge outdated symbolic links
-      if [ -d ./src ]; then
-        SPKGS=$(find ./src -maxdepth 1 -type l -name \*.tar.xz | grep [0-9].tar.xz | sort | head -n -1 )
-        if [ -n "$SPKGS" ]; then
-          PURGE=true
-          rm $SPKGS
+            # Purge outdated symbolic links
+            if [ -d ./src ]; then
+                SPKGS=$(find ./src -maxdepth 1 -type l -name \*.tar.xz | grep [0-9].tar.xz | sort | head -n -1 )
+                if [ -n "$SPKGS" ]; then
+                    PURGE=true
+                    rm $SPKGS
+                fi
+            fi
+
+            # Purge outdated extracted source packages
+            if [ -d ./src ]; then
+                SRC_DIRS=$(find ./src -mindepth 1 -maxdepth 1 -type d | sort | head -n -1)
+                if [ -n "$SRC_DIRS" ]; then
+                    PURGE=true
+                    rm -rf $SRC_DIRS
+                fi
+            fi
+
+            if  $PURGE; then
+                printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
+            fi
         fi
-      fi
-
-      # Purge outdated extracted source packages
-      if [ -d ./src ]; then
-        SRC_DIRS=$(find ./src -mindepth 1 -maxdepth 1 -type d | sort | head -n -1)
-        if [ -n "$SRC_DIRS" ]; then
-          PURGE=true
-          rm -rf $SRC_DIRS
-        fi
-      fi
-
-      if  $PURGE; then
-        printf "\e[1;34m======> $(basename $DIR)\e[0m\n"
-      fi
-    fi
-  done
+    done
 }
 
 #-----------------------------------------------------------------------------
 mr_parse_args() {
-  case "$1" in
-    --list|-l)
-      mr_list
-    ;;
-    --clean|-c)
-      mr_clean
-    ;;
-    --delete|-d)
-      mr_delete
-    ;;
-    --update|-u)
-      mr_update
-    ;;
-    --build|-b)
-      mr_build
-    ;;
-    --help|-h)
-      mr_help
-    ;;
-    --remove|-r)
-      mr_remove
-    ;;
-    --purge|-p)
-      mr_purge
-    ;;
-    *)
-      mr_help
-      exit 1
-  esac
-  cd $CUR_DIR
+    local TASK="${1}"
+    case "${TASK}" in
+        list|l)     mr_list;;
+        clean|c)    mr_clean;;
+        delete|d)   mr_delete;;
+        update|u)   mr_update;;
+        build|b)    mr_build;;
+        remove|r)   mr_remove;;
+        purge|p)    mr_purge;;
+        *)          mr_help
+    esac
+    cd $CUR_DIR
 }
 
 #-----------------------------------------------------------------------------
 CUR_DIR=$(pwd)
 BASEDIR=$(dirname $(readlink -f $0))
-mr_parse_args $1
+
+AUTOMATE=0
+TASK=""
+OPTSTRING=aht:
+while getopts ${OPTSTRING} OPT; do
+    case ${OPT} in
+        a) AUTOMATE=1;;
+        h) mr_help;;
+        t) TASK=${OPTARG};;
+        *) mr_help
+    esac
+done
+shift "$(( $OPTIND - 1 ))"
+
+mr_parse_args ${TASK}
