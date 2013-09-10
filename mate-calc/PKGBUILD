@@ -1,30 +1,30 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-calc
 pkgver=1.6.0
 pkgrel=2
 pkgdesc="Calculator for the Mate desktop environment"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL' 'GPL')
-depends=('gtk2' 'libxml2' 'libpng' 'freetype2' 'flex' 'bison' 'pixman' 'glib2' 'pango' 'gdk-pixbuf2' 
-'cairo' 'atk')
-makedepends=('pkgconfig')
+depends=('atk' 'desktop-file-utils' 'glib2' 'gtk2' 'libxml2')
+makedepends=('flex' 'bison' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
 groups=('mate-extras')
-url="http://mate-desktop.org"
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('400d5c4d2927edfec4abed6c340ddc125d62ec2b99bf272db09d799efcd2993f')
-build()
-{
-cd "${srcdir}/${pkgname}-$pkgver"
-bash autogen.sh --prefix=/usr || return 1
-intltoolize --automake --copy --force || return 1
-make || return 1
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('c793118595cd370ccca9875880e0e6760f6c5a08')
+install=${pkgname}.install
+
+build() {
+    cd ${srcdir}/${pkgname}-${pkgver}
+    ./autogen.sh \
+        --prefix=/usr
+    make
 }
 
-
-package()
-{
-cd "${srcdir}/${pkgname}-$pkgver"
-make DESTDIR="${pkgdir}" install || return 1
+package() {
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

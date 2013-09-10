@@ -1,4 +1,4 @@
-# Maintainer: josephgbr <rafael.f.f1@gmail.com>
+# Contributor: josephgbr <rafael.f.f1@gmail.com>
 # Contributor: cmorlok <christianmorlok@web.de>
 # Contributor: fazibear <fazibear@gmail.com>
 # Contributor: neuromante <lorenzo.nizzi.grifi@gmail.com>
@@ -10,38 +10,34 @@ pkgname=caja-dropbox
 pkgver=0.7.1
 pkgrel=2
 pkgdesc="Dropbox for Linux - Caja extension"
-arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://forums.dropbox.com/topic.php?id=21111"
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('custom:CC-BY-ND-3' 'GPL')
-depends=('libnotify' 'mate-file-manager' 'hicolor-icon-theme')
-makedepends=('python2-docutils' 'python2' 'pygtk')
+depends=('glib2' 'polkit' 'procps' 'pygtk' 'libnotify' 'mate-file-manager')
+makedepends=('mate-common' 'python2-docutils')
 optdepends=('dropbox: Dropbox support')
-install=$pkgname.install
-options=('!libtool' '!emptydirs')
-source=(http://pub.mate-desktop.org/releases/1.4/$pkgname-$pkgver.tar.xz)
-sha256sums=('7989ce7d71c746104242c3d91d20788938f7bda532b7077193fca6be1cf69760')
+options=('!emptydirs' '!libtool')
+groups=('')
+source=(http://pub.mate-desktop.org/releases/1.4/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('559e09ecebb8bcd8e059710b171ffecc0ed4c2e3')
 
 build() {
-    cd "$srcdir/$pkgname-$pkgver/"
+    cd ${srcdir}/${pkgname}-${pkgver}
     sed -i "s/python/python2/" configure.in dropbox.in Makefile.am rst2man.py
     ./autogen.sh \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static \
-        --libexecdir=/usr/lib/libmate || return 1
-
-    ./configure --prefix=/usr --sysconfdir=/etc
+        --disable-static
     make
 }
 
 package() {
-    cd "${pkgname}-${pkgver}/"
+    cd ${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    # install the common license
     install -Dm644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/COPYING"
-    # remove executables and optdepend on 'dropbox' package in AUR
-    rm "${pkgdir}/usr/bin/dropbox"
-    rm "${pkgdir}/usr/share/applications/dropbox.desktop"
-    rm "${pkgdir}/usr/share/man/man1/dropbox.1"
+    # Remove the cruft
+    rm -f ${pkgdir}/usr/lib/caja/extensions-*/libcaja-dropbox.a
+    rm -f ${pkgdir}/usr/bin/dropbox
+    rm -f ${pkgdir}/usr/share/applications/dropbox.desktop
+    rm -rf ${pkgdir}/usr/share/icons/*
+    rm -rf ${pkgdir}/usr/share/man/*
 }

@@ -1,45 +1,29 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-
-
-# TO  BE  EDITED!!!! IT WORK, OTHERWISE!
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-file-manager-share
 pkgver=1.6.0
-pkgrel=1
-pkgdesc=""
+pkgrel=2
+pkgdesc="Quickly share a folder from the Caja file manager."
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('')
-makedepends=('') #
+depends=('mate-file-manager' 'samba')
+makedepends=('mate-common' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
 groups=('mate-extras')
-options=(!emptydirs)
-replace=('')
-conflicts=('')
-url="http://mate-desktop.org"
-install=mate-file-manager-share.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-md5sums=('70a7a02fee63ae358e7e4d943f9206c5')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('28e8ec54330e41aa44866107c23f48b47ea198e4')
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     PYTHON=/usr/bin/python2 ./autogen.sh \
-        --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --libexecdir=/usr/lib/mate-applets \
-        --disable-static \
-        --disable-scrollkeeper \
-        --enable-polkit \
-        --enable-networkmanager \
-        --enable-mixer-applet \
-        --enable-mini-commander \
-        --enable-frequency-selector \
-        --enable-ipv6 \
-        --disable-schemas-install || return 1
-	make || return 1
+        --prefix=/usr
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    make DESTDIR="${pkgdir}" install || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
+    rm -f ${pkgdir}/usr/lib/caja/extensions-*/libcaja-share.a
 }

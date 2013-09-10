@@ -1,26 +1,31 @@
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-indicator-applet
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Indicator Applet for MATE"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
-url=""
 license=('GPL')
-makedepends=('gtk2' 'mate-panel')
-options=(!libtool)
-install=$pkgname.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('79c5154075096b4622c782d798b5981a2f277b9079e545a9bcb4644e6a6e4dfd')
+depends=('dbus' 'gtk2' 'gtk-update-icon-cache' 'libindicator' 'libxml2' 'mate-panel')
+makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
+groups=('mate-extras')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('b28675ec6e6ef7caf2d6cde3e90c16d59764ecaa')
+install=${pkgname}.install
 
 build() {
-cd $srcdir/$pkgname-$pkgver
-  ./autogen.sh LDFLAGS="-lm" --prefix=/usr --sysconfdir=/etc --localstatedir=/var --libexecdir=/usr/lib/$pkgname \
-  --disable-static --disable-scrollkeeper
-  make
+    cd ${srcdir}/${pkgname}-${pkgver}
+    ./autogen.sh \
+        --prefix=/usr \
+        --libexec=/usr/lib/${pkgname} \
+        --disable-static
+    make
 }
-package() {
-    cd "${srcdir}/$pkgname-$pkgver"
 
+package() {
+    cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
 }

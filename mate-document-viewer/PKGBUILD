@@ -1,6 +1,6 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
-#Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-document-viewer
 pkgver=1.6.1
@@ -9,50 +9,38 @@ pkgdesc="Simply a document viewer"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('gtk2' 'libspectre' 'gsfonts' 'poppler-glib' 'djvulibre' 'mate-icon-theme'
-         't1lib' 'libmatekeyring' 'desktop-file-utils' 'libgxps') #  'dconf' 'gsettings-desktop-schemas'
-makedepends=('mate-doc-utils' 'mate-file-manager' 'intltool'
-             'gobject-introspection' 'gtk-doc' 'texlive-bin')
-optdepends=('texlive-bin: DVI support')
+depends=('dbus' 'desktop-file-utils' 'djvulibre' 'glib2' 'gobject-introspection' 'gtk2' 'libgxps'
+         'libmatekeyring' 'libsm' 'libspectre' 'libtiff' 'libx11' 'libxml2'
+         'mate-file-manager' 'mate-icon-theme' 'poppler-glib' 'shared-mime-info'
+         't1lib' 'texlive-bin' 'zlib')
+makedepends=('gtk-update-icon-cache' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
 groups=('mate-extras')
-install=mate-document-viewer.install
-options=('!libtool' '!emptydirs')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('100feb278bb919de874e76bd2344cb49fa60e2819e98b1394226086e34bf59ce')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('5b3d1643b7945d56214ec13dc38cb641dfb688e1')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    # Work around a build system issue. This may not be required for 1.8
+    cd ${srcdir}/${pkgname}-${pkgver}
+    # Work around a build system problem
     autoreconf -v -i --force
-
     ./configure \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --libexecdir=/usr/lib/mate-document-viewer \
-        --disable-static \
-        --enable-caja \
-        --enable-pdf \
-        --enable-tiff \
+        --libexecdir=/usr/lib/${pkgname} \
+        --enable-gtk-doc \
         --enable-djvu \
         --enable-dvi \
         --enable-t1lib \
-        --enable-comics \
         --enable-pixbuf \
-        --enable-xps \
-        --disable-scrollkeeper \
-        --enable-introspection \
-        --disable-schemas-compile || return 1
-
-    make || return 1
+        --enable-comics \
+        --disable-introspection \
+        --disable-static \
+        --disable-scrollkeeper
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="$pkgdir/" install
-
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
     ln -s atril ${pkgdir}/usr/bin/mate-document-viewer
-
 }

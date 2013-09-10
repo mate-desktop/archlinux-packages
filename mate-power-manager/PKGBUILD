@@ -1,38 +1,44 @@
-#Mantainer: Giovanni Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
-#Contributor: hekel <hekel@archlinux.info>
+# Contributor: Giovanni Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: hekel <hekel@archlinux.info>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-power-manager
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Session daemon that makes it easy to manage your laptop or desktop system for Mate Desktop"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('libnotify' 'libunique' 'libcanberra' 'hicolor-icon-theme' 'upower' 'libmatekeyring')
-makedepends=('intltool' 'pkgconfig' 'mate-doc-utils' 'mate-panel' 'mate-control-center')
+depends=('avahi' 'dbus' 'desktop-file-utils' 'glib2' 'gtk-update-icon-cache' 'gtk2' 'libcanberra'
+         'libgcrypt' 'libmatekeyring' 'libnotify' 'libunique' 'libx11' 'libxext' 'libxrandr'
+         'mate-notification-daemon' 'mate-panel' 'upower')
+makedepends=('docbook2x' 'docbook-xml' 'mate-common' 'mate-doc-utils' 'perl-xml-parser' 'xmlto')
 options=('!emptydirs')
-install=mate-power-manager.install
-url="http://mate-desktop.org"
 groups=('mate-extras')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('b80d531271f9a7ee692d69173b28f46feba025b4ffcc9e0ab2f5b09934f8d80f')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('fb8f28a32620e3e288a887edcad1059c7ff84fd4')
+install=${pkgname}.install
 
 build() {
+    cd ${srcdir}/${pkgname}-${pkgver}
 
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	./configure --prefix=/usr --sysconfdir=/etc \
+    #Work around a problem where the .sgml fail to parse.
+    sed -e 's:@HAVE_DOCBOOK2MAN_TRUE@.*::' -i man/Makefile.in
+
+    ./configure \
+        --prefix=/usr \
+		--libexecdir=/usr/lib/${pkgname} \
+        --sysconfdir=/etc \
 		--localstatedir=/var \
 		--sbindir=/usr/bin \
-		--libexecdir=/usr/lib/${pkgname} \
-		--disable-scrollkeeper 
-		#--enable-applets
-		#--with-dbus-services=/usr/share/dbus-1/services \
-		#--with-dpms-ext \
-
-	make || return 1
+		--enable-applets \
+		--enable-unique \
+		--disable-scrollkeeper
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    make DESTDIR="$pkgdir/" install
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

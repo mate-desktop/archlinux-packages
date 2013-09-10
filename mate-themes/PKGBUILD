@@ -1,33 +1,34 @@
-#Mantainer: Giovanni Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Giovanni Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-themes
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Default themes for the MATE desktop"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('gtk2' 'gtk-engines' 'gtk-engine-murrine')
-makedepends=('intltool')
+depends=('gtk-update-icon-cache' 'gtk2' 'gtk-engines' 'gtk-engine-murrine' 'librsvg' 'mate-icon-theme')
+makedepends=('mate-common' 'icon-naming-utils' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
+groups=('mate')
 replaces=('gnome-themes')
 conflicts=('gnome-themes')
-options=('!emptydirs' '!libtool')
-url="http://mate-desktop.org"
-groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('d7d5c6c530f125ba63b78bba130bb9e05b9303d4e1090b96fd3703c9e99ea252')
-
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('d0dc8072bfed13b0f356c08e6ef67c89e9f9f12d')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
+    cd ${srcdir}/${pkgname}-${pkgver}
     ./configure \
         --prefix=/usr \
         --enable-all-themes \
-        --disable-placeholders || return 1
-    make || return 1
+        --enable-test-themes \
+        --disable-placeholders
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    make DESTDIR="$pkgdir" install || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

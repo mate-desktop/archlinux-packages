@@ -1,33 +1,29 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-backgrounds
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Background images and data for MATE"
+url="http://mate-desktop.org"
 arch=('any')
 license=('GPL')
-url="http://mate-desktop.org"
-makedepends=('intltool' 'mate-common')
+depends=('glib2')
+makedepends=('mate-common' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('1a97f7e3e8551d3ccba4bf205855ac01e3aaf9db6b3666b89ae17fb7f2b99301')
-
-
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('3a399181b021f82281ed1f3145dfe9a45f44968c')
 
 build() {
-	cd "${srcdir}/$pkgname-$pkgver"
-
+	cd ${srcdir}/${pkgname}-${pkgver}
 	./autogen.sh \
-		--prefix=/usr \
-		--sysconfdir=/etc \
-		--localstatedir=/var || return 1
-
-	make || return 1
+		--prefix=/usr
+	make
 }
 
 package() {
-	cd "$srcdir/$pkgname-$pkgver"
-
-	make DESTDIR="$pkgdir" install || return 1
+	cd ${srcdir}/${pkgname}-${pkgver}
+	make DESTDIR="${pkgdir}" install
 }

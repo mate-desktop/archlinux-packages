@@ -1,32 +1,31 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=libmatekbd
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE keyboard library"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL')
-depends=('libxklavier') #  'dconf'
-makedepends=('intltool' 'pkgconfig')
-groups=('mate')
-url="http://mate-desktop.org"
+depends=('glib2' 'gtk2' 'iso-codes' 'libxklavier')
+makedepends=('mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-install=libmatekbd.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('d10593e69cdbb591bf1704a13ff8cd4fbc6f1212f76554081da746bc1aff0685')
+groups=('mate')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('2d2237b404d3b9687019cb3e69a0ae553b901a4a')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     ./configure \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --disable-static || return 1
-    make || return 1
+        --disable-static
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="${pkgdir}" install || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

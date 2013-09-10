@@ -1,41 +1,36 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-doc-utils
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Documentation utilities for MATE"
+url="http://mate-desktop.org"
 arch=('any')
 license=('GPL' 'LGPL')
-depends=('libxslt' 'python2' 'docbook-xml' 'rarian' 'gnome-doc-utils')
-makedepends=('pkgconfig' 'intltool' 'mate-common')
-#conflicts=('gnome-doc-utils')
+depends=('libxml2' 'libxslt' 'python2' 'python2-lxml')
+makedepends=('mate-common' 'rarian' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-url="http://mate-desktop.org"
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('96a3b8dd1350d6531e9ddd1ca47eefe6881551b5ac5fb225bd41d2bec8aaf5eb')
-
 groups=('mate')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('8a4612a21884bb6474e9d695df186551e1b9f4fb')
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     PYTHON=/usr/bin/python2 ./configure \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --mandir=/usr/share/man \
-        --localstatedir=/var \
-        --disable-scrollkeeper || return 1
-    make || return 1
+        --disable-scrollkeeper
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    make DESTDIR="$pkgdir" install || return 1
-
-    # files with conflicts with gnome-doc-utils
-    rm -rf "${pkgdir}/usr/share/xml/mallard/"
-    rm "${pkgdir}/usr/share/pkgconfig/xml2po.pc"
-    rm -rf "${pkgdir}/usr/share/man/"
-    rm -rf "${pkgdir}/usr/lib/"
-    rm "${pkgdir}/usr/bin/xml2po"
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
+    # Remove files that conflict with `gnome-doc-utils`
+    rm -rf ${pkgdir}/usr/share/xml/mallard/
+    rm -rf ${pkgdir}/usr/share/man/
+    rm -rf ${pkgdir}/usr/lib/
+    rm ${pkgdir}/usr/share/pkgconfig/xml2po.pc
+    rm ${pkgdir}/usr/bin/xml2po
 }

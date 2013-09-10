@@ -1,38 +1,34 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-dialogs
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Display graphical dialog boxes from shell scripts"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL')
-depends=('libnotify')
-makedepends=('intltool' 'gtk-doc' 'mate-doc-utils')
-url="http://mate-desktop.org"
-groups=('mate')
-provides=('zenity')
-conflicts=('zenity')
+depends=('glib2' 'gtk2' 'libnotify')
+makedepends=('docbook-xml' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('7618ba0a58a4cd0798549a3bbab5ab245037bf8ce4a15b14ddd048d6d4c9c126')
-
+groups=('mate')
+conflicts=('zenity')
+provides=('zenity')
+replaces=('zenity')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('68098c8bf6a888eebad99ba026794d93ae527e1a')
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     ./autogen.sh \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static \
-        --disable-scrollkeeper || return 1
-    make || return 1
+        --disable-scrollkeeper
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
+    cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    # hax!
     ln -s matedialog ${pkgdir}/usr/bin/zenity
 }

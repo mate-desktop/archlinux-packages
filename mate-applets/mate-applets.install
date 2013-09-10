@@ -1,6 +1,7 @@
 post_install() {
-    /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
-    gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
+    gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor
+    gtk-update-icon-cache -q -t -f /usr/share/icons/mate
 }
 
 pre_upgrade() {
@@ -12,10 +13,10 @@ post_upgrade() {
 }
 
 pre_remove() {
-    /usr/bin/glib-compile-schemas /usr/share/glib-2.0/schemas/
+    glib-compile-schemas /usr/share/glib-2.0/schemas/
 }
 
 post_remove() {
-    gtk-update-icon-cache -q -t -f usr/share/icons/hicolor
+    gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor
+    gtk-update-icon-cache -q -t -f /usr/share/icons/mate
 }
-

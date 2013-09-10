@@ -1,36 +1,37 @@
-#Mantainer: Giovanni Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-session-manager
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Session Handler"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL' 'LGPL')
-depends=('upower' 'gtk2' 'glib2' 'hicolor-icon-theme' 'libxtst' 'mate-polkit') #  'startup-notification'
-makedepends=('pkgconfig' 'intltool' 'xtrans')
+depends=('dbus' 'desktop-file-utils' 'glib2' 'gobject-introspection' 'gtk-update-icon-cache' 'gtk2'
+         'libice' 'libsm' 'libx11' 'libxau' 'libxext' 'libxrender' 'libxt' 'libxtst'
+         'mate-file-manager' 'mate-panel' 'mate-polkit' 'mate-settings-daemon'
+         'mate-window-manager' 'startup-notification' 'systemd' 'upower')
+makedepends=('mate-common' 'perl-xml-parser' 'xmlto')
 options=('!emptydirs' '!libtool')
-install=mate-session-manager.install
-url="http://mate-desktop.org"
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('4ee7b4ae18df5becd986b05634428edf0ad8de150a14dc29848b6d34ab312ce9')
-
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('46188f6c02cc5978688af9d5db4be09f1b9199a5')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
+    cd ${srcdir}/${pkgname}-${pkgver}
     ./configure \
         --prefix=/usr \
+        --libexecdir=/usr/lib/${pkgname} \
         --sysconfdir=/etc \
         --localstatedir=/var \
-	    --libexecdir=/usr/lib || return 1
-
-    make || return 1
+        --disable-introspection
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="$pkgdir/" install
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

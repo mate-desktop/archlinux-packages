@@ -1,30 +1,32 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
-#Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-icon-theme
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE icon theme"
+url="http://mate-desktop.org"
 arch=('any')
 license=('GPL')
-depends=('hicolor-icon-theme' 'icon-naming-utils' 'gtk-update-icon-cache')
-makedepends=('intltool')
-url="http://mate-desktop.org"
+depends=('hicolor-icon-theme' 'gtk2' 'gtk-update-icon-cache' 'librsvg')
+makedepends=('icon-naming-utils' 'mate-common' 'perl-xml-parser')
+options=(!strip)
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('5596d5bb261156ca94a22bfe947690feb3d94c61b761faa2f7486e33b99711aa')
-install=mate-icon-theme.install
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('28a7fb3236162d8154015bdd71da1e4e26a14412')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    ./configure --prefix=/usr || return 1
-    make || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    ./configure \
+        --prefix=/usr \
+        --enable-test-themes
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    #don't include icon cache
-    rm -f  "${pkgdir}/usr/share/icons/mate/icon-theme.cache"
+    rm -f ${pkgdir}/usr/share/icons/mate/icon-theme.cache
 }

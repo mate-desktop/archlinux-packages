@@ -1,33 +1,29 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-file-manager-gksu
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An extension for opening terminals in arbitrary local paths"
-arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('mate-file-manager')
-makedepends=('pkgconfig' 'intltool')
-install=mate-file-manager-gksu.install
-options=('!libtool')
+depends=('gtk2' 'mate-file-manager')
+makedepends=('mate-common' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
 groups=('mate-extras')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('deef71c2aabb6185eaab59b375f3b672748d08c945a78c7d87b0c6f0c432aebe')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('fd6e6268e5e00706fbe5d20090aff94d2ce57302')
 
 build() {
-	cd "$srcdir/$pkgname-$pkgver"
-	./autogen.sh --prefix=/usr 
-
-	#fix non-standard directory
-	sed -i 's|${prefix}/etc|/etc|' Makefile
-
-	make || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    ./autogen.sh \
+        --prefix=/usr
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="$pkgdir/" install
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

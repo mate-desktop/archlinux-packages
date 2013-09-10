@@ -1,38 +1,39 @@
-#Mantainer: Giovanni Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-panel
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Panel"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('libmatewnck' 'mate-menus' 'mate-desktop' 'librsvg' 'hicolor-icon-theme' 'libcanberra' 'libmateweather') # 'evolution-data-server'
-makedepends=('mate-doc-utils' 'pkgconfig' 'intltool' 'networkmanager')
+depends=('avahi' 'cairo' 'dbus' 'dconf' 'desktop-file-utils' 'gobject-introspection' 'gtk2' 'gtk-update-icon-cache'
+         'libmatewnck' 'libcanberra' 'libice' 'libmateweather' 'librsvg' 'libsm'
+         'libsoup' 'libx11' 'libxau' 'libxrandr' 'mate-menus' 'mate-desktop'
+         'mate-polkit' 'pango' 'python2')
+makedepends=('mate-common' 'mate-doc-utils' 'networkmanager' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-install=mate-panel.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('88bf0620e1eba7e2e165060ac6fa21896b8e24d1ac742ff6f8c884c5408dd53b')
-
-url="http://mate-desktop.org"
 groups=('mate')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('ccd8d01e14d12d09a9c807b98990c02868323c71')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
+    cd ${srcdir}/${pkgname}-${pkgver}
     PYTHON=/usr/bin/python2 ./configure \
         --prefix=/usr \
+        --libexecdir=/usr/lib/${pkgname} \
         --sysconfdir=/etc \
         --localstatedir=/var \
+        --enable-introspection \
         --disable-static \
-        --libexecdir=/usr/lib/mate-panel \
-        --disable-scrollkeeper \
-        --enable-introspection || return 1
-       make || return 1
+        --disable-scrollkeeper
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="${pkgdir}" install || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

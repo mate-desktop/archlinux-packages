@@ -1,34 +1,31 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=libmatekeyring
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE keyring client library"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL' 'LGPL')
-depends=('libgcrypt' 'gtk-doc') # 'eggdbus' 'mate-keyring'
-makedepends=('intltool' 'pkgconfig' 'python')
-groups=('mate')
+depends=('dbus' 'glib2' 'libgcrypt')
+makedepends=('docbook-xml' 'mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-url="http://mate-desktop.org"
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('7ce673bbf7e2d20811b5197c9a79e813226c4ef8d2719f606ad6d98e5958cc99')
+groups=('mate')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('69ef377a6b2336ee4da9b6582829b1cb8ee70f0e')
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     ./autogen.sh \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static \
-        --libexecdir=/usr/lib/mate-keyring || return 1
-
-    make || return 1
+        --libexecdir=/usr/lib/mate-keyring \
+        --disable-static
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="${pkgdir}" install || return 1
+    cd ${srcdir}/$pkgname-$pkgver
+    make DESTDIR="${pkgdir}" install
 }

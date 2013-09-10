@@ -1,52 +1,36 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-media
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="MATE Media Tools"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('gstreamer0.10-base-plugins' 'mate-panel' 'libnotify' 'pulseaudio')
-makedepends=('mate-doc-utils' 'pkgconfig' 'mate-settings-daemon' 'intltool' 'mate-icon-theme' 'libpulse')
+depends=('desktop-file-utils' 'gstreamer0.10-base-plugins' 'mate-panel' 'libnotify' 'libpulse' 'pulseaudio')
+makedepends=('mate-doc-utils' 'mate-settings-daemon' 'mate-icon-theme' 'perl-xml-parser')
+options=('!emptydirs' '!libtool')
 groups=('mate-extras')
-options=(!emptydirs !libtool)
-url="http://mate-desktop.org"
-install=mate-media.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('baf0ac85685a376107feee47b372b678a86404ce215b19c7fc259b012a3694a6')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('06c3418dfe0be26e74b0e40aa92eea6260579a72')
+install=${pkgname}.install
 
 build() {
-	cd "${srcdir}/${pkgname}-$pkgver"
-	./autogen.sh --prefix=/usr --sysconfdir=/etc \
+	cd ${srcdir}/${pkgname}-${pkgver}
+	./autogen.sh \
+        --prefix=/usr \
+        --sysconfdir=/etc \
 		--libexecdir=/usr/lib/${pkgname} \
-		--localstatedir=/var --disable-static \
-		--disable-schemas-install \
-		--disable-scrollkeeper \
+		--localstatedir=/var \
 		--enable-pulseaudio \
-		--enable-profiles --enable-grecord \
-		--enable-gstprops 
-	# brute force
-	mate-doc-prepare --force --copy
-	automake
-	autoconf
-	autoreconf -i --force
-	aclocal
-	intltoolize --automake --copy --force
-	automake --add-missing
-
-	# Optional Features:
-	#    --enable-pulseaudio     Enable PulseAudio support [default=auto]
-	#    --enable-profiles       enable mate media profiles
-	#    --enable-grecord        enable mate sound recorder
-	#    --enable-gstprops       enable gstreamer properties
-	#    --enable-gstmix         enable gstreamer mixer
-
-	make || return 1
+		--disable-static \
+		--disable-scrollkeeper
+	make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-
-    make DESTDIR="$pkgdir/" install
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
 }

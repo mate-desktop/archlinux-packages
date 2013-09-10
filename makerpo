@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MATE_VER=1.6
 
@@ -17,9 +17,9 @@ MATE_BUILD_ORDER=(
   mate-polkit
   mate-window-manager
   mate-settings-daemon
-  mate-session-manager
   mate-menus
   mate-panel
+  mate-session-manager
   mate-backgrounds
   mate-themes
   mate-notification-daemon
@@ -28,7 +28,7 @@ MATE_BUILD_ORDER=(
   mate-screensaver
   mate-file-archiver
   mate-media
-  #mate-media-gstreamer # fail
+  #mate-media-gstreamer # fail; doesn't compile
   mate-power-manager
   mate-system-monitor
   caja-dropbox
@@ -205,6 +205,9 @@ mr_update() {
 # Build Mate packages.
 mr_build() {
     BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
+
+    rm -f fail.log 2>/dev/null
+
     for PKG in ${BUILD_ORDER[@]}; do
         cd $BASEDIR/$PKG
         printf "\e[1;34m======> $(basename $PKG)\e[0m\n"
@@ -219,7 +222,7 @@ mr_build() {
 
         if [ ! -f *$NEW_VER*.pkg.tar.xz ]; then
             makepkg -s --noconfirm --needed 2>&1 | tee build.log
-            if [ "$?" -ne 0 ]; then
+            if [ "$?" -ne 0 ] || [ ! -f *$NEW_VER*.pkg.tar.xz ]; then
                 printf '\e[1;34m======> \e[1;31mBuilding "%s" failed.\e[0m\n' "$(basename $PKG)"
                 if [ ${AUTOMATE} -eq 0 ]; then
                     printf "Continue with package tree? [Y/n] "
@@ -251,6 +254,7 @@ mr_build() {
                     sudo pacman -U --noconfirm $(ls *$NEW_VER*.pkg.tar.xz --color=none -t -1 | head -n 1)
                     if [ "$?" -ne 0 ]; then
                         printf '\e[1;34m======> \e[1;31mInstalling "%s" failed.\e[0m\n' "$(basename $PKG)"
+                        echo "$(basename $PKG)" >> fail.log
                         exit 1
                     fi
                 fi

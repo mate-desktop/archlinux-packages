@@ -1,42 +1,42 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
-#Contributor: hekel <hekel@archlinux.info>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: hekel <hekel@archlinux.info>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-control-center
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The Control Center for MATE"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('mate-window-manager' 'libxss' 'desktop-file-utils'
-         'mate-settings-daemon' 'libmatekbd' 'libcanberra'
-         'sound-theme-freedesktop' 'libunique' 'mate-menus'
-         'librsvg') #  'evolution-data-server>=2.29.92'
-makedepends=('mate-doc-utils' 'pkgconfig' 'intltool')
+depends=('dbus' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas' 'glib2'
+         'gtk2' 'mate-desktop' 'mate-icon-theme' 'mate-menus' 'mate-settings-daemon'
+         'mate-window-manager' 'libgtop' 'libmatekbd' 'libunique' 'librsvg'
+         'libx11' 'libxcursor' 'libxft' 'libxi' 'libxml2' 'libxrandr'
+         'libxrender' 'libxss' 'libxt' 'shared-mime-info' 'startup-notification')
+makedepends=('docbook2x' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-url="http://mate-desktop.org"
 groups=('mate')
-install=mate-control-center.install
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('1e6fce881187d99f46eee2bf304b55fd74c60cb1ecaf687c709b1477122c1220')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('7908a1bdbbcce9d2b7a8604c83fdd30f2c19b106')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
-        --localstatedir=/var \
         --sbindir=/usr/bin \
+        --localstatedir=/var \
         --disable-static \
         --disable-scrollkeeper \
-        --enable-aboutme \
-        --disable-update-mimedb || return 1
-       make || return 1
+        --disable-update-mimedb
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    make DESTDIR="$pkgdir/" install
-   #don't include mime cache
-    rm -f  "${pkgdir}/usr/share/applications/mimeinfo.cache"
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
+    rm -f ${pkgdir}/usr/share/applications/mimeinfo.cache
 }

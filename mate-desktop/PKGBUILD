@@ -1,41 +1,37 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-desktop
 pkgver=1.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Library with common API for various MATE modules"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=(GPL LGPL)
-depends=('libunique' 'libnotify' 'hicolor-icon-theme' 'gvfs-obexftp' 'obexd-client')
-makedepends=('mate-doc-utils' 'intltool' 'mate-common' 'gtk-doc')
+depends=('desktop-file-utils' 'glib2' 'gtk2' 'hicolor-icon-theme' 'libunique' 'libx11' 'libxml2'
+         'libxrandr' 'python2' 'startup-notification')
+makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-url="http://mate-desktop.org"
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('fe65f4035fe74510e6f35df0c0e29cbf8a6501852adc3971773d0072b914aed5')
-
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('f259a432d4f5847ad98e00ecb4cc593153f61df9')
+install=${pkgname}.install
 
 build() {
-    cd "$srcdir/$pkgname-$pkgver"
-
-    ./configure \
+    cd ${srcdir}/${pkgname}-${pkgver}
+    PYTHON=/usr/bin/python2 ./configure \
         --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
         --disable-static \
         --disable-scrollkeeper \
-        --disable-startup-notification \
-        --enable-unique || return 1
-    # --disable-nyancat
-    # --with-gtk=3.0
-    make || return 1
+        --disable-schemas-compile \
+        --enable-gtk-doc
+    make
 }
 
 package() {
-    cd "$srcdir/$pkgname-$pkgver"
-    make DESTDIR="$pkgdir" install
-
-    # prevent conflicts errors
-    mv "${pkgdir}/usr/share/omf" "${pkgdir}/usr/share/mate-omf"
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
+    # Prevent conflict errors
+    mv ${pkgdir}/usr/share/omf ${pkgdir}/usr/share/mate-omf
 }

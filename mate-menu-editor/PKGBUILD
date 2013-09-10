@@ -1,34 +1,34 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-menu-editor
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="An powerfull text editor for MATE"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('glib2' 'gtk2' 'gtksourceview2' 'libxml2' 'pygtksourceview2')
-makedepends=('pkgconfig' 'mate-doc-utils' 'intltool')
+depends=('desktop-file-utils' 'gtk-update-icon-cache' 'libxml2' 'pygtk' 'python2' 'python2-gobject2')
+makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-url="http://mate-desktop.org"
 groups=('mate-extras')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('5c7b96e04ab3e495ae88065d1a084719ce72da050f9b869347edc3fc21ca4f61')
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('dfc29a0280bc8c880e1ea042867fb350d957b490')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/${pkgname}-$pkgver"
-
-    PYTHON=/usr/bin/python2 ./autogen.sh --prefix=/usr --sysconfdir=/etc \
-        --localstatedir=/var --libexecdir=/usr/lib/ \
-        --disable-scrollkeeper --enable-python || return 1
-    make || return 1
-
+    cd ${srcdir}/${pkgname}-${pkgver}
+    PYTHON=/usr/bin/python2 ./autogen.sh \
+        --prefix=/usr
+    make
 }
 
 package() {
-    cd "${srcdir}/${pkgname}-$pkgver"
-
-    make DESTDIR="$pkgdir/" install
+    cd ${srcdir}/${pkgname}-${pkgver}
+    make DESTDIR="${pkgdir}" install
+    # Remove Python byte-code
+    rm -f ${pkgdir}/usr/lib/python2.*/site-packages/Mozo/*.py{c,o}
 }
 
 

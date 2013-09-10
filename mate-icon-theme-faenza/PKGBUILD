@@ -1,32 +1,31 @@
-#Mantainer: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
-#Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Xpander <xpander0@gmail.com>
+# Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-icon-theme-faenza
 pkgver=1.6.0
-pkgrel=1
-pkgdesc="Description: MATE icon theme: Faenza."
+pkgrel=2
+pkgdesc="Faenza icon theme for MATE"
+url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL')
-depends=('gtk2' 'librsvg' 'hicolor-icon-theme' )
-makedepends=('gettext' 'hicolor-icon-theme' 'intltool' 'pkg-config' 'icon-naming-utils' 'librsvg' 'mate-common')
-url="http://mate-desktop.org"
+depends=('hicolor-icon-theme' 'gtk-update-icon-cache' 'gtk2' 'librsvg')
+makedepends=('icon-naming-utils' 'mate-common')
+options=(!strip)
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/$pkgname-$pkgver.tar.xz)
-sha256sums=('8fdf1ebf45b1156230ac923c237e55b26366ffafe19db6c6ba1d46ccb819928b')
-
-#install=mate-icon-theme-faenza.install
+source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('17fcac5602f9b3039101e03a17e9d0f693f2dd78')
+install=${pkgname}.install
 
 build() {
-    cd "${srcdir}/$pkgname-$pkgver"
-    ./autogen.sh --prefix=/usr || return 1
-    make || return 1
+    cd ${srcdir}/${pkgname}-${pkgver}
+    ./autogen.sh \
+        --prefix=/usr
+    make
 }
 
 package() {
-    cd "${srcdir}/$pkgname-$pkgver"
+    cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    #don't include icon cache
-    rm -f  "${pkgdir}/usr/share/icons/mate/icon-theme.cache"
+    rm -f ${pkgdir}/usr/share/icons/matefaenza/icon-theme.cache
 }
-
-
