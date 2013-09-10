@@ -11,7 +11,7 @@ license=('GPL')
 depends=('mate-file-manager' 'samba')
 makedepends=('mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-groups=('mate-extras')
+groups=('mate-not-ready')
 source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
 sha1sums=('28e8ec54330e41aa44866107c23f48b47ea198e4')
 
