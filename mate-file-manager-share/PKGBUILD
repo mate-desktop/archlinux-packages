@@ -3,7 +3,7 @@
 
 pkgname=mate-file-manager-share
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Quickly share a folder from the Caja file manager."
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
