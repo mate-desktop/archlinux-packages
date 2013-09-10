@@ -4,7 +4,7 @@
 
 pkgname=mate-doc-utils
 pkgver=1.6.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Documentation utilities for MATE"
 url="http://mate-desktop.org"
 arch=('any')
@@ -12,7 +12,6 @@ license=('GPL' 'LGPL')
 depends=('libxml2' 'libxslt' 'python2' 'python2-lxml')
 makedepends=('mate-common' 'rarian' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-groups=('mate')
 source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
 sha1sums=('8a4612a21884bb6474e9d695df186551e1b9f4fb')
 
