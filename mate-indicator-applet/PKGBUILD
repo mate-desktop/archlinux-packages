@@ -3,7 +3,7 @@
 
 pkgname=mate-indicator-applet
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Indicator Applet for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
