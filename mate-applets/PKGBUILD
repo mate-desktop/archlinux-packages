@@ -4,7 +4,7 @@
 
 pkgname=mate-applets
 pkgver=1.6.1
-pkgrel=2
+pkgrel=4
 pkgdesc="Applets for MATE panel"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
@@ -33,7 +33,6 @@ build() {
         --libexecdir=/usr/lib/${pkgname} \
         --enable-polkit \
         --enable-networkmanager \
-        --enable-timer-applet \
         --enable-ipv6 \
         --disable-static \
         --disable-scrollkeeper
@@ -45,5 +44,7 @@ package() {
     make DESTDIR="${pkgdir}" install
     # Remove Python byte-code
     rm -rf ${pkgdir}/usr/lib/python2.*/site-packages/mate_invest/*.py{c,o}
-    rm -rf ${pkgdir}/usr/lib/python2.*/site-packages/timerapplet/*.py{c,o}
+    # Use python2
+    sed -i 's/env python/env python2/' ${pkgdir}/usr/lib/${pkgname}/invest-applet
+
 }
