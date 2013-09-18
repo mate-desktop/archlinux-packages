@@ -9,10 +9,9 @@ pkgdesc="An image viewing and cataloging program for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'desktop-file-utils' 'glib2' 'gtk-update-icon-cache' 'gtk2'
-         'exempi' 'lcms' 'libexif' 'libjpeg-turbo' 'libxml2' 'mate-desktop'
-         'mate-icon-theme' 'pygtk' 'python2' 'python2-gobject2' 'shared-mime-info'
-         'startup-notification' 'zlib')
+depends=('dbus' 'desktop-file-utils' 'gtk2' 'exempi' 'lcms' 'libexif'
+         'libjpeg-turbo' 'mate-desktop' 'mate-icon-theme' 'pygtk' 'python2'
+         'python2-gobject2' 'startup-notification' 'zlib')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate-extras')

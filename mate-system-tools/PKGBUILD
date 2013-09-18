@@ -8,8 +8,8 @@ pkgdesc="An extension for opening terminals in arbitrary local paths"
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('desktop-file-utils' 'glib2' 'gtk-update-icon-cache' 'gtk2' 'liboobs' 'mate-file-manager'
-         'mate-polkit' 'system-tools-backends')
+depends=('desktop-file-utils' 'gtk2' 'liboobs' 'mate-file-manager' 'mate-polkit'
+         'system-tools-backends')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 optdepends=('ntp: Automatic time syncronisation.'
             'system-config-printer: Add CUPS printer configuration tool.'

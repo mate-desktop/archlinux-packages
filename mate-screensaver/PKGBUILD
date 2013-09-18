@@ -8,10 +8,10 @@ pkgdesc='Screensaver for MATE'
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'desktop-file-utils' 'glib2' 'gtk2' 'libmatekbd' 'libnotify' 'libx11' 'libxext'
-         'libxss' 'libxt' 'libxxf86vm' 'mate-desktop' 'mate-icon-theme'
-         'mate-menus' 'mate-session-manager' 'libgl' 'pam' 'scrnsaverproto'
-         'startup-notification' 'systemd' 'xproto')
+depends=('dbus' 'desktop-file-utils' 'gtk2' 'libmatekbd' 'libnotify' 'libxss'
+         'libxt' 'libxxf86vm' 'mate-desktop' 'mate-icon-theme'
+         'mate-menus' 'mate-session-manager' 'pam' 'scrnsaverproto'
+         'startup-notification' 'systemd')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser' 'xmlto')
 optdepends=('mate-power-manager: Add power management support.')
 options=('!emptydirs' '!libtool')

@@ -9,7 +9,7 @@ pkgdesc="Context menu for sending files on MATE File Manager"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'glib2' 'gupnp' 'gtk2' 'mate-file-manager')
+depends=('dbus' 'gupnp' 'gtk2' 'mate-file-manager')
 makedepends=('mate-common' 'perl-xml-parser')
 optdepends=('pidgin: Support for sending to instant messaging networks.'
             'gajim: Support for sending to Jabber.'

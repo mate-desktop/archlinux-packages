@@ -42,14 +42,49 @@ for Arch Linux.
 
 Some common `depends` for a MATE related package are:
 
-   * To
-   * be
-   * written
+#### gtk2
+
+Most MATE 1.6 packages require `gtk2` and the `gtk2` package for Arch Linux
+automatically pulls in the following:
+
+  * `atk`
+    * `glib2`
+  * `pango`
+    * `libthai`, `cairo`, `libxft`, `harfbuzz`
+  * `libxcursor`
+    * `libxfixes`, `libxrender`
+      * `libx11`
+        * `libxcb`, `xproto`, `kbproto`
+  * `libxinerama`
+    * `libxext`, `xineramaproto`
+  * `libxrandr`
+    * `libxext`, `libxrender`, `randrproto`
+  * `libxi`
+    * `libxext`, `inputproto`
+  * `libxcomposite`
+    * `libxfixes`, `compositeproto`
+  * `libxdamage`
+    * `libxfixes`, `damageproto`
+  * `shared-mime-info`
+    * `libxml2`, `glib2`
+  * `cairo`
+    * `libpng`, `libxrender`, `libxext`, `fontconfig`, `pixman`, `glib2`, `mesa`, `libgl`, `sh`,  `lzo2`
+  * `libcups`
+    * `gnutls`, `libtiff`, `libpng`, `krb5`, `avahi`
+  * `gtk-update-icon-cache`
+    * `gdk-pixbuf2`
+
+Therefore if `gtk2` is in your PKGBUILD `depends`, then none of the above need to
+be listed.
 
 ### PKGBUILD makedepends
 
-`mate-common` is a build requirement, it is likely required in any MATE related
-package. It **should not** need to be installed on an end-users system.
+`mate-common` is a build requirement, it is probably required for any MATE related
+package. It **should not** need to be listed in the PKGBUILD `depends` as this 
+would install on an end-users system, it should only be listed in `makedepends`.
+
+`mate-doc-utils` is also a build requirement, it should only be listed in
+`makedepends`.
 
 ### Python
 
@@ -88,13 +123,13 @@ If you want to help the MATE packaging team for Arch Linux then you'll like
 want to build MATE packages yourself to test your changes before submitting
 a pull-request.
 
-## Use a `chroot`
+## Use a chroot
 
 It is highly recommends you use a `chroot` to create a sandbox for build the MATE
 packages. [archroot-builder](https://github.com/flexiondotorg/archroot-builder) can
 assist with that.
 
-## `makerpo`
+## makerpo
 
 `makerpo` is a shell script that can build the entire MATE package tree for Arch
 Linux. You'll find it in the same directory as this README. `makerpo -h` will help

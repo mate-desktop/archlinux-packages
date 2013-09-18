@@ -9,8 +9,7 @@ pkgdesc="Provides access to weather information from the net"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL')
-depends=('glib2' 'gtk2' 'gtk-update-icon-cache' 'libsoup' 'libxml2' 'pygtk'
-         'python2-gobject2')
+depends=('gtk2' 'libsoup' 'pygtk' 'python2-gobject2')
 makedepends=('mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')

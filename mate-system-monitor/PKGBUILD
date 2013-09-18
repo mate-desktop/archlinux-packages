@@ -8,8 +8,7 @@ pkgdesc="A system monitor for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'glib2' 'glibmm' 'gtk2' 'gtkmm' 'libgtop' 'libmatewnck' 'librsvg'
-         'libxml2' 'mate-icon-theme')
+depends=('dbus' 'glibmm' 'gtk2' 'gtkmm' 'libgtop' 'libmatewnck' 'librsvg' 'mate-icon-theme')
 makedepends=('docbook2x' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate-extras')

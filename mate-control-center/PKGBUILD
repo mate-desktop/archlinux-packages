@@ -10,11 +10,10 @@ pkgdesc="The Control Center for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas' 'glib2'
-         'gtk2' 'mate-desktop' 'mate-icon-theme' 'mate-menus' 'mate-settings-daemon'
+depends=('dbus' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas' 'gtk2'
+         'mate-desktop' 'mate-icon-theme' 'mate-menus' 'mate-settings-daemon'
          'mate-window-manager' 'libgtop' 'libmatekbd' 'libunique' 'librsvg'
-         'libx11' 'libxcursor' 'libxft' 'libxi' 'libxml2' 'libxrandr'
-         'libxrender' 'libxss' 'libxt' 'shared-mime-info' 'startup-notification')
+         'libxss' 'libxt' 'startup-notification')
 makedepends=('docbook2x' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')

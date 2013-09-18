@@ -9,9 +9,8 @@ pkgdesc="A collection of Bluetooth utilities and modules for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'desktop-file-utils' 'glib2' 'gobject-introspection' 'gtk-update-icon-cache' 'gtk2'
-         'gvfs-obexftp' 'libnotify' 'libunique' 'libx11' 'libxi' 'libxml2'
-         'obexd-client' 'obex-data-server')
+depends=('dbus' 'desktop-file-utils' 'gobject-introspection' 'gtk2'
+         'gvfs-obexftp' 'libnotify' 'libunique' 'obexd-client' 'obex-data-server')
 makedepends=('mate-common' 'mate-doc-utils' 'mate-file-manager-sendto' 'perl-xml-parser')
 optdepends=('mate-user-share: Enable sharing via bluetooth and other protocols.')
 options=('!emptydirs' '!libtool')

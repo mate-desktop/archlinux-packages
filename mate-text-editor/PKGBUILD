@@ -8,8 +8,8 @@ pkgdesc="A powerful text editor for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('desktop-file-utils' 'enchant' 'glib2' 'gtk2' 'gtksourceview2' 'iso-codes'
-         'libsm' 'libxml2' 'python2' 'python2-gobject2' 'pygtksourceview2')
+depends=('desktop-file-utils' 'enchant' 'gtk2' 'gtksourceview2' 'iso-codes'
+         'libsm' 'python2' 'python2-gobject2' 'pygtksourceview2')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate-extras')

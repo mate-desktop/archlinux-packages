@@ -9,13 +9,12 @@ pkgdesc="Applets for MATE panel"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
 license=('GPL')
-depends=('avahi' 'dbus' 'glib2' 'gsettings-desktop-schemas' 'gstreamer0.10-base-plugins'
-         'gstreamer0.10-good-plugins' 'gtk-update-icon-cache' 'gtk2' 'gvfs'
-         'libgtop' 'libmateweather' 'libmatewnck' 'libnotify' 'liboobs' 'libsoup'
-         'libxklavier' 'libxml2' 'libxt' 'libx11' 'mate-desktop' 'mate-icon-theme'
-         'mate-panel' 'mate-settings-daemon' 'polkit' 'pygtk' 'python2' 'python2-dbus'
-         'python2-gobject2' 'python2-notify' 'sharutils' 'system-tools-backends'
-         'upower' 'xproto')
+depends=('avahi' 'dbus' 'gsettings-desktop-schemas' 'gstreamer0.10-base-plugins'
+         'gstreamer0.10-good-plugins' 'gtk2' 'gvfs' 'libgtop' 'libmateweather'
+         'libmatewnck' 'libnotify' 'liboobs' 'libsoup' 'libxklavier' 'libxt'
+         'mate-desktop' 'mate-icon-theme' 'mate-panel' 'mate-settings-daemon'
+         'polkit' 'pygtk' 'python2' 'python2-dbus' 'python2-gobject2'
+         'python2-notify' 'sharutils' 'system-tools-backends' 'upower')
 makedepends=('docbook2x' 'docbook-xsl' 'mate-common' 'mate-doc-utils' 'networkmanager' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate-extras')

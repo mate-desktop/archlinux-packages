@@ -8,8 +8,8 @@ pkgdesc="Common MATE utilities for viewing disk usage, logs and fonts, taking sc
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('desktop-file-utils' 'glib2' 'gtk-update-icon-cache' 'gtk2' 'libcanberra' 'libgtop'  'libsm'
-         'libx11' 'libxext' 'mate-panel' 'xproto' 'zlib')
+depends=('desktop-file-utils' 'gtk2' 'libcanberra' 'libgtop' 'libsm'
+         'mate-panel' 'zlib')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser' 'rarian')
 options=('!libtool' '!emptydirs')
 groups=('mate-extras')

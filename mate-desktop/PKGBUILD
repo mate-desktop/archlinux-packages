@@ -9,8 +9,8 @@ pkgdesc="Library with common API for various MATE modules"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=(GPL LGPL)
-depends=('desktop-file-utils' 'glib2' 'gtk2' 'hicolor-icon-theme' 'libunique' 'libx11' 'libxml2'
-         'libxrandr' 'python2' 'startup-notification')
+depends=('desktop-file-utils' 'gtk2' 'hicolor-icon-theme' 'libunique' 'python2'
+         'startup-notification')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')

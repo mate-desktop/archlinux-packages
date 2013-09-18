@@ -9,10 +9,9 @@ pkgdesc="The MATE shell and file manager"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'desktop-file-utils' 'exempi' 'glib2' 'gobject-introspection'
-         'gtk-update-icon-cache' 'gtk2' 'gvfs' 'libexif' 'libunique' 'libxml2' 'libx11' 'libxt'
-         'libxrender' 'libxext' 'mate-desktop' 'mate-icon-theme' 'pangox-compat'
-         'shared-mime-info' 'startup-notification')
+depends=('dbus' 'desktop-file-utils' 'exempi' 'gobject-introspection' 'gtk2'
+         'gvfs' 'libexif' 'libunique' 'libxt' 'mate-desktop' 'mate-icon-theme'
+         'startup-notification')
 makedepends=('mate-common')
 optdepends=('gstreamer0.10-good-plugins: automatic media playback when mouseover')
 options=('!emptydirs' '!libtool')

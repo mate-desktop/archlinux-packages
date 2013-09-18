@@ -9,10 +9,9 @@ pkgdesc="The MATE Settings daemon"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('dbus' 'dconf' 'fontconfig' 'glib2' 'gstreamer0.10-base-plugins' 'gtk2'
-         'gtk-update-icon-cache' 'libcanberra' 'libcanberra-gstreamer' 'libmatekbd'
-         'libnotify' 'libpulse' 'libx11' 'libxext' 'libxt' 'libxi' 'libxrandr' 'libxrender'
-         'mate-desktop' 'mate-polkit' 'startup-notification')
+depends=('dbus' 'dconf' 'fontconfig' 'gstreamer0.10-base-plugins' 'gtk2'
+         'libcanberra' 'libcanberra-gstreamer' 'libmatekbd' 'libnotify' 
+         'libpulse' 'libxt' 'mate-desktop' 'mate-polkit' 'startup-notification')
 makedepends=('mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')

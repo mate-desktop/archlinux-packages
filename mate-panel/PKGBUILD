@@ -9,10 +9,9 @@ pkgdesc="The MATE Panel"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('avahi' 'cairo' 'dbus' 'dconf' 'desktop-file-utils' 'gobject-introspection' 'gtk2' 'gtk-update-icon-cache'
+depends=('avahi' 'dbus' 'dconf' 'desktop-file-utils' 'gobject-introspection' 'gtk2'
          'libmatewnck' 'libcanberra' 'libice' 'libmateweather' 'librsvg' 'libsm'
-         'libsoup' 'libx11' 'libxau' 'libxrandr' 'mate-menus' 'mate-desktop'
-         'mate-polkit' 'pango' 'python2')
+         'libsoup' 'libxau' 'mate-menus' 'mate-desktop' 'mate-polkit' 'python2')
 makedepends=('mate-common' 'mate-doc-utils' 'networkmanager' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')
