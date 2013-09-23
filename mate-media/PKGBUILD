@@ -4,7 +4,7 @@
 
 pkgname=mate-media
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="MATE Media Tools"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -12,7 +12,7 @@ license=('GPL')
 depends=('desktop-file-utils' 'gstreamer0.10-base-plugins' 'mate-panel' 'libnotify' 'libpulse' 'pulseaudio')
 makedepends=('mate-doc-utils' 'mate-settings-daemon' 'mate-icon-theme' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-groups=('mate-extras')
+groups=('mate')
 source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
 sha1sums=('06c3418dfe0be26e74b0e40aa92eea6260579a72')
 install=${pkgname}.install

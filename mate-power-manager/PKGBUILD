@@ -5,7 +5,7 @@
 
 pkgname=mate-power-manager
 pkgver=1.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Session daemon that makes it easy to manage your laptop or desktop system for Mate Desktop"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -14,7 +14,7 @@ depends=('avahi' 'dbus' 'desktop-file-utils' 'gtk2' 'libcanberra' 'libgcrypt'
          'libmatekeyring' 'libnotify' 'libunique' 'mate-notification-daemon' 'mate-panel' 'upower')
 makedepends=('docbook2x' 'docbook-xml' 'mate-common' 'mate-doc-utils' 'perl-xml-parser' 'xmlto')
 options=('!emptydirs')
-groups=('mate-extras')
+groups=('mate')
 source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
 sha1sums=('fb8f28a32620e3e288a887edcad1059c7ff84fd4')
 install=${pkgname}.install

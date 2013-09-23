@@ -3,7 +3,7 @@
 
 pkgname=mate-screensaver
 pkgver=1.6.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Screensaver for MATE'
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -15,7 +15,7 @@ depends=('dbus' 'desktop-file-utils' 'gtk2' 'libmatekbd' 'libnotify' 'libxss'
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser' 'xmlto')
 optdepends=('mate-power-manager: Add power management support.')
 options=('!emptydirs' '!libtool')
-groups=('mate-extras')
+groups=('mate')
 source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz
         mate-screensaver.pam)
 sha1sums=('3b4c0c1554fdf96def14efa8f9e100d29dc05984'
