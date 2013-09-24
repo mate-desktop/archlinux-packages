@@ -4,7 +4,7 @@
 
 pkgname=mate-document-viewer
 pkgver=1.6.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Simply a document viewer"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -21,9 +21,7 @@ install=${pkgname}.install
 
 build() {
     cd ${srcdir}/${pkgname}-${pkgver}
-    # Work around a build system problem
-    autoreconf -v -i --force
-    ./configure \
+    ./autogen.sh \
         --prefix=/usr \
         --libexecdir=/usr/lib/${pkgname} \
         --enable-gtk-doc \

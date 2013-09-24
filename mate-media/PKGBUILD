@@ -9,7 +9,7 @@ pkgdesc="MATE Media Tools"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('desktop-file-utils' 'gstreamer0.10-base-plugins' 'mate-panel' 'libnotify' 'libpulse' 'pulseaudio')
+depends=('desktop-file-utils' 'gstreamer0.10-base-plugins' 'libnotify' 'mate-panel' 'pulseaudio')
 makedepends=('mate-doc-utils' 'mate-settings-daemon' 'mate-icon-theme' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')
@@ -18,13 +18,15 @@ sha1sums=('06c3418dfe0be26e74b0e40aa92eea6260579a72')
 install=${pkgname}.install
 
 build() {
-	cd ${srcdir}/${pkgname}-${pkgver}
+    cd ${srcdir}/${pkgname}-${pkgver}
 	./autogen.sh \
         --prefix=/usr \
         --sysconfdir=/etc \
 		--libexecdir=/usr/lib/${pkgname} \
 		--localstatedir=/var \
 		--enable-pulseaudio \
+		--disable-gstmix \
+		--disable-gst-mixer-applet \
 		--disable-static \
 		--disable-scrollkeeper
 	make
