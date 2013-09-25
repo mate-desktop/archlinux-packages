@@ -200,6 +200,12 @@ function tree_audit() {
             echo "    ${FIND_PYC}"
             echo "    ${FIND_PYO}"
         fi
+        if [ -d pkg/*/usr/sbin ]; then
+            echo "    Detected '/usr/sbin' add '--sbindir=/usr/bin' to 'build()' in PKGBUILD."
+        fi
+        if [ -d pkg/*/usr/libexec ]; then
+            echo "    Detected '/usr/libexec' add '--libexecdir=/usr/lib/${pkgname}' to 'build()' in PKGBUILD."
+        fi
         if [ -d pkg/*/usr/share/glib-2.0/schemas ]; then
             echo "    Contains glib-2.0 schemas, '.install' will auto-update."
             INSTALL_SCHEMA=1
