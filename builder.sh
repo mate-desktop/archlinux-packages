@@ -77,6 +77,7 @@ function usage() {
     echo "  clean       Clean sources using 'make maintainer-clean' and remove 'src' directories."
     echo "  delete      Delete Arch Linux 'pkg.tar.xz binary package files."
     echo "  purge       Purge source tarballs, 'src' and 'pkg' directories."
+    echo "  repo        Create a package repository in '${HOME}/mate/'"
     echo "  uninstall   Uninstall MATE packages and dependencies."
     echo
     echo "Each of the tasks above run automatically and operate over the entire package tree."
@@ -344,6 +345,34 @@ function tree_purge() {
     fi
 }
 
+# Create a package repository
+function tree_repo() {
+    echo "Action : repo"
+    source /etc/makepkg.conf
+
+    rm -rf ${HOME}/mate/${CARCH} 2>/dev/null
+    mkdir -p ${HOME}/mate/${CARCH}
+
+    local BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
+    for PKG in ${BUILD_ORDER[@]};
+    do
+        cd ${BASEDIR}/${PKG}
+        PKG=$(basename ${PKG})
+        if [[ "${PKG}" == *python* ]]; then
+            PKG=$(echo ${PKG} | sed 's/python/python2/')
+        fi
+        local PKGBUILD_VER=$(grep -E ^pkgver PKGBUILD | cut -f2 -d'=')
+        local PKGBUILD_REL=$(grep -E ^pkgrel PKGBUILD | cut -f2 -d'=')
+        local PKGBUILD=${PKGBUILD_VER}-${PKGBUILD_REL}
+        local NEWEST=$(ls -1 *${PKGBUILD}*.pkg.tar.xz 2>/dev/null)
+        if [ -f ${NEWEST} ]; then
+            cp ${NEWEST} ${HOME}/mate/${CARCH}/
+        fi
+    done
+    repo-add -n ${HOME}/mate/${CARCH}/mate.db.tar.gz ${HOME}/mate/${CARCH}/*.pkg.tar.xz
+    sudo chown -R root: ${HOME}/mate/${CARCH}
+}
+
 # Uninstall MATE packages and orphans from the system.
 function tree_uninstall() {
     echo "Action : uninstall"
@@ -393,8 +422,8 @@ if [ "${TASK}" == "audit" ] ||
    [ "${TASK}" == "delete" ] ||
    [ "${TASK}" == "purge" ]; then
     tree_run ${TASK}
-elif [ "${TASK}" == "uninstall" ]; then
-    tree_uninstall
+elif [ "${TASK}" == "repo" ] || [ "${TASK}" == "uninstall" ]; then
+    tree_${TASK}
 else
     echo "ERROR! You've asked me to do something I don't understand."
     echo
