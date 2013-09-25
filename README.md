@@ -79,8 +79,8 @@ be listed.
 
 ### PKGBUILD makedepends
 
-`mate-common` is a build requirement, it is probably required for any MATE related
-package. It **should not** need to be listed in the PKGBUILD `depends` as this 
+`mate-common` is a build requirement, it is probably required by any MATE related
+package. It **should not** need to be listed in the PKGBUILD `depends` as this
 would install on an end-users system, it should only be listed in `makedepends`.
 
 `mate-doc-utils` is also a build requirement, it should only be listed in
@@ -89,7 +89,7 @@ would install on an end-users system, it should only be listed in `makedepends`.
 ### Python
 
 As the time of writting any Python programs/libraries in MATE 1.6 require
-Python 2. However, Python 2 is the default on Arch Linux therefore PKGBUILDs
+Python 2. However, Python 3 is the default on Arch Linux therefore PKGBUILDs
 need to force the use of `python2` in the following ways:
 
   * Set the `PYTHON` environment variable to `/usr/bin/python2`
@@ -119,32 +119,38 @@ PKGBUILD file.
 
 # Building MATE packages
 
-If you want to help the MATE packaging team for Arch Linux then you'll like
+If you want to help the MATE packaging team for Arch Linux then you'll likely
 want to build MATE packages yourself to test your changes before submitting
 a pull-request.
 
 ## Use a chroot
 
-It is highly recommends you use a `chroot` to create a sandbox for build the MATE
-packages. [archroot-builder](https://github.com/flexiondotorg/archroot-builder) can
-assist with that.
+It is highly recommended that you use a `chroot` to create a sandbox for building
+the MATE packages. [archroot-builder](https://github.com/flexiondotorg/archroot-builder)
+can assist with that.
 
-## makerpo
+## builder.sh
 
-`makerpo` is a shell script that can build the entire MATE package tree for Arch
-Linux. You'll find it in the same directory as this README. `makerpo -h` will help
-get you started, but the magic incantation is:
+`builder.sh` is a shell script that can build the entire MATE package tree for Arch
+Linux, and do some other useful stuff. You'll find it in the same directory as this
+README. `./builder.sh -h` will help get you started, but the magic incantation is:
 
-    ./makerpo -t build -a
+    ./builder.sh -t build
 
-The above will automatically build every package, or just the one's that have new
-version that is unbuilt.
+The above will automatically build every package in the tree, or just build those
+packages that have newer PKGBUILDs that are currently unbuilt. You can also audit the
+build status using:
 
-### build.log
+    ./builder.sh -t audit
 
-If you have difficulty getting a package to build, then `makerpo` will keep a
-`build.log` file for each package. This can be useful to identify missing
-requirements or to share with the MATE developers so they can assist. They like
-the logs pasting here:
+This will provide lots of useful information about each package in the tree and
+also automatically create/update the relevant `.install` files.
+
+### Build and Package logs
+
+If you have difficulty getting a package to build, then `builder.sh` will keep a
+build and package log file for each package. This can be useful to identify missing
+requirements or to share with the MATE developers so they can assist. The MATE
+developers like the logs pasting here:
 
   * <http://paste.mate-desktop.org/>

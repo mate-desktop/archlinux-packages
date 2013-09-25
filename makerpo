@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+echo "WARNING! `basename ${0}` is deprecated. Please use 'builder.sh' instead."
+echo
+echo "Use CTRL+C to abort and any other key to continue."
+read
+
 MATE_VER=1.6
 
 MATE_BUILD_ORDER=(
