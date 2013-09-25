@@ -1,4 +1,5 @@
-build.log
+*build.log*
+*package.log*
 *.tar.bz2
 *.tar.gz
 *.tar.xz
