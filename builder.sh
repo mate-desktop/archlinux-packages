@@ -76,7 +76,7 @@ function usage() {
     echo "  check       Check upstream for new source tarballs."
     echo "  clean       Clean sources using 'make maintainer-clean' and remove 'src' directories."
     echo "  delete      Delete Arch Linux 'pkg.tar.xz binary package files."
-    echo "  purge       Purge source tarballs and 'src' directories "
+    echo "  purge       Purge source tarballs, 'src' and 'pkg' directories."
     echo "  uninstall   Uninstall MATE packages and dependencies."
     echo
     echo "Each of the tasks above run automatically and operate over the entire package tree."
@@ -264,9 +264,10 @@ function tree_build() {
         if [ $? -ne 0 ]; then
             echo " - Failed to build ${PKG}. Stopping here."
             exit 1
+        else
+            sudo makepkg -i --noconfirm --asroot
         fi
     else
-        echo " - ${PKG} is built and current."
         if [ "${INSTALLED}" != "${PKGBUILD}" ]; then
             sudo makepkg -i --noconfirm --asroot
         fi
@@ -321,7 +322,7 @@ function tree_delete() {
     done
 }
 
-# Remove source tarballs
+# Purge source tarballs, 'src' and 'pkg' directories.
 function tree_purge() {
     local PKG=${1}
     # Remove all source tarballs, don't bother checking versions just ditch them all.
@@ -332,11 +333,14 @@ function tree_purge() {
             rm -f ${TARBALL}
         fi
     done
-
-    # Remove the any 'src' directories created by `makepkg`.
+    # Remove 'src' and 'pkg' directories created by `makepkg`.
     if [ -d ${PKG}/src ]; then
         echo " - Deleting ${PKG}/src"
-        rm -rf $${PKG}/src
+        rm -rf ${PKG}/src
+    fi
+    if [ -d ${PKG}/pkg ]; then
+        echo " - Deleting ${PKG}/pkg"
+        rm -rf ${PKG}/pkg
     fi
 }
 
