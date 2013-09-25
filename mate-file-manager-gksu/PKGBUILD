@@ -4,7 +4,7 @@
 
 pkgname=mate-file-manager-gksu
 pkgver=1.6.0
-pkgrel=3
+pkgrel=4
 pkgdesc="An extension for opening terminals in arbitrary local paths"
 url="http://manny.cluecoder.org/packages/nautilus-open-terminal"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -26,4 +26,5 @@ build() {
 package() {
     cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
+    rm -f ${pkgdir}/usr/lib/caja/extensions-2.0/libcaja-gksu.a
 }
