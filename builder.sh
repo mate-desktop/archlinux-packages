@@ -7,6 +7,12 @@ AUR_BUILD_ORDER=(
   aur/libxnvctrl
 )
 
+COMMUNITY_BUILD_ORDER=(
+  community/mate-applet-lockkeys
+  community/mate-applet-softupd
+  community/mate-applet-streamer
+)
+
 MATE_BUILD_ORDER=(
   mate-common
   mate-doc-utils
@@ -60,6 +66,7 @@ MATE_BUILD_ORDER=(
   python-caja
 )
 
+BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} ${COMMUNITY_BUILD_ORDER[@]})
 BASEDIR=$(dirname $(readlink -f ${0}))
 
 # Show usgae information
@@ -88,7 +95,7 @@ function usage() {
 # OK, this is as ugly as hell but it works.
 # Skip past this section and look how nice everything else it ;-)
 function make_install_file() {
-    local INSTALL_FILE=${1}
+    local INSTALL_FILE="${1}"
     echo "post_install() {" > ${INSTALL_FILE}
     if [ ${INSTALL_SCHEMA} -eq 1 ]; then
         echo "    glib-compile-schemas /usr/share/glib-2.0/schemas/" >> ${INSTALL_FILE}
@@ -147,12 +154,14 @@ function update_install_file() {
     local PKG=${1}
     local INSTALL_REQUIRED=$((${INSTALL_SCHEMA} + ${INSTALL_MIME} + ${INSTALL_ICON} + ${INSTALL_DESKTOP}))
     if [ ${INSTALL_REQUIRED} -ge 1 ]; then
-        local INSTALL_FILE=${PKG}.install
+        local INSTALL_FILE=`basename ${PKG}`.install
+
         if [ -f ${INSTALL_FILE} ]; then
             echo "    Updating ${INSTALL_FILE}"
         else
             echo "    Creating ${INSTALL_FILE}"
         fi
+
         local TEST_INSTALL=$(grep -E ^install= PKGBUILD)
         if [ $? -ne 0 ]; then
             echo "    Missing 'install=${INSTALL_FILE}' in PKGBUILD."
@@ -353,7 +362,6 @@ function tree_repo() {
     rm -rf ${HOME}/mate/${CARCH} 2>/dev/null
     mkdir -p ${HOME}/mate/${CARCH}
 
-    local BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
     for PKG in ${BUILD_ORDER[@]};
     do
         cd ${BASEDIR}/${PKG}
@@ -378,7 +386,6 @@ function tree_uninstall() {
     echo "Action : uninstall"
     local INSTALLED_PKGS=$(pacman -Qq)
     local UNINSTALL_PKGS=""
-    local BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
     cd ${BASEDIR}
     for PKG in ${BUILD_ORDER[@]};
     do
@@ -396,7 +403,6 @@ function tree_uninstall() {
 function tree_run() {
     local ACTION=${1}
     echo "Action : ${ACTION}"
-    local BUILD_ORDER=( ${AUR_BUILD_ORDER[@]} ${MATE_BUILD_ORDER[@]} )
     for PKG in ${BUILD_ORDER[@]};
     do
         cd ${BASEDIR}
