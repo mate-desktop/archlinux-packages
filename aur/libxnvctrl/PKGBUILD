@@ -1,10 +1,11 @@
-# Maintainer: Alessio Sergi <asergi at archlinux dot us>
+# Maintainer  : Alessio Sergi <asergi at archlinux dot us>
+# Contributor : Martin Wimpress <code@flexion.org>
 
 pkgname=libxnvctrl
 pkgver=325.15
-pkgrel=1
+pkgrel=2
 pkgdesc="NVIDIA X Ctrl library"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64' 'armv6h' armv7h)
 url="http://www.nvidia.com/"
 license=('GPL2')
 makedepends=('libxext')

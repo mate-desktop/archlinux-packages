@@ -11,7 +11,7 @@ depends=('gtk2' 'mate-panel')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
 groups=('mate-community')
 source=(http://www.zavedil.com/wp-content/uploads/2013/09/${pkgname}-${pkgver}.tar.gz)
-md5sums=('dc8406b4daccb00771fe27b04bf2c5b0')
+md5sums=('297c79ae1be1d196610b04bb3c118f91')
 install=${pkgname}.install
 
 build() {
