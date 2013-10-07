@@ -4,7 +4,7 @@
 
 pkgname=mate-applets
 pkgver=1.6.1
-pkgrel=4
+pkgrel=6
 pkgdesc="Applets for MATE panel"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://mate-desktop.org"
@@ -41,8 +41,6 @@ build() {
 package() {
     cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    # Remove Python byte-code
-    rm -rf ${pkgdir}/usr/lib/python2.*/site-packages/mate_invest/*.py{c,o}
     # Use python2
     sed -i 's/env python/env python2/' ${pkgdir}/usr/lib/${pkgname}/invest-applet
 

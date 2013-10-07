@@ -2,14 +2,14 @@
 
 pkgname=mate-applet-streamer
 pkgver=0.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A MATE panel applet to let you play your favourite online radio station with a single click."
 url="http://www.zavedil.com/online-radio-applet//"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
 depends=('gst-plugins-base' 'gtk2' 'libnotify' 'mate-panel' 'sqlite')
 makedepends=('mate-common' 'mate-doc-utils' 'perl-xml-parser')
-groups=('mate-community')
+groups=('mate-extras-community')
 source=(http://www.zavedil.com/wp-content/uploads/2013/09/${pkgname}-${pkgver}.tar.gz)
 md5sums=('2cf4d6ff355ef6c0749acb2565efe81f')
 install=${pkgname}.install

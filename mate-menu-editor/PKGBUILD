@@ -4,7 +4,7 @@
 
 pkgname=mate-menu-editor
 pkgver=1.6.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An powerfull text editor for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -27,8 +27,6 @@ build() {
 package() {
     cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    # Remove Python byte-code
-    rm -f ${pkgdir}/usr/lib/python2.*/site-packages/Mozo/*.py{c,o}
 }
 
 

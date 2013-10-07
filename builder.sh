@@ -5,12 +5,16 @@ AUR_BUILD_ORDER=(
   aur/system-tools-backends
   aur/liboobs
   aur/libxnvctrl
+  aur/python2-exiv2
 )
 
 COMMUNITY_BUILD_ORDER=(
   community/mate-applet-lockkeys
   community/mate-applet-softupd
   community/mate-applet-streamer
+  community/mate-disk-utility
+  community/mate-color-manager
+  community/variety
 )
 
 MATE_BUILD_ORDER=(
@@ -204,13 +208,6 @@ function tree_audit() {
         if [ -n "${FIND_LA}" ]; then
             echo "    Contains .la files, add '!libtool' to 'options' in PKGBUILD."
             echo "    ${FIND_LA}"
-        fi
-        local FIND_PYC=$(find pkg/ -name *.pyc)
-        local FIND_PYO=$(find pkg/ -name *.pyo)
-        if [ -n "${FIND_PYC}" ] || [ -n "${FIND_PYO}" ]; then
-            echo "    Contains Python byte-code, delete them via 'package()' in PKGBUILD."
-            echo "    ${FIND_PYC}"
-            echo "    ${FIND_PYO}"
         fi
         if [ -d pkg/*/usr/sbin ]; then
             echo "    Detected '/usr/sbin' add '--sbindir=/usr/bin' to 'build()' in PKGBUILD."

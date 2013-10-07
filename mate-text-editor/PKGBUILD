@@ -3,7 +3,7 @@
 
 pkgname=mate-text-editor
 pkgver=1.6.0
-pkgrel=3
+pkgrel=4
 pkgdesc="A powerful text editor for MATE"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -30,6 +30,4 @@ build() {
 package() {
     cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
-    # Remove Python byte-code
-    rm -f ${pkgdir}/usr/lib/pluma/plugins/*/*.py{c,o}
 }
