@@ -14,7 +14,9 @@ COMMUNITY_BUILD_ORDER=(
   community/mate-applet-streamer
   community/mate-disk-utility
   community/mate-color-manager
+  community/mate-mplayer
   community/variety
+  community/mintmenu
 )
 
 MATE_BUILD_ORDER=(

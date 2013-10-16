@@ -1,0 +1,45 @@
+# Contributor: twa022 <twa022 at gmail dot com>
+# Contributor: Giuseppe Borzi <gborzi _AT_ ieee _DOT_ org>
+# Contributor: ryooichi <ryooichi+arch AT gmail DOT com>
+# Contributor: Martin Wimpress <code@flexion.org>
+
+pkgname=mintmenu
+pkgver=5.4.9
+pkgrel=3
+pkgdesc="Linux Mint Menu for MATE"
+arch=('i686' 'x86_64' 'armv6h' 'armv7h')
+url="http://packages.linuxmint.com/pool/main/m/mintmenu"
+license=('GPL')
+depends=('gksu' 'mate-panel>=1.6.0' 'python2-gobject'
+         'python2-xdg' 'python2-keybinder2' 'python2-xlib' 'xdg-utils')
+optdepends=('mate-menu-editor: for editing the gnome menu'
+            'gnome-packagekit: package manager button'
+            'mate-screensaver: lock screen button')
+groups=('mate-extras-community')
+source=("${url}/${pkgname}_${pkgver}.tar.gz")
+install=${pkgname}.install
+md5sums=('39826a17c8de746ad119208588be2ec2')
+
+
+build() {
+    cd ${srcdir}/${pkgname}
+    rm -f usr/lib/linuxmint/mintMenu/*.py{c,o} usr/lib/linuxmint/mintMenu/plugins/*.py{c,o}
+    for PY in $(find . -name '*.py'); do
+        sed -ri 's:^#!/usr/bin/(env )?python$:&2:' "${PY}"
+    done
+
+    # Create version.py
+    local COMMON_PATH="${srcdir}/${pkgname}/usr/lib/linuxmint/common"
+    mkdir -p ${COMMON_PATH}
+    echo "#!/usr/bin/env python2"           >  ${COMMON_PATH}/version.py
+    echo "print \"${pkgver}-${pkgrel}\""    >> ${COMMON_PATH}/version.py
+    chmod 755 ${COMMON_PATH}/version.py
+}
+
+package() {
+    cd ${srcdir}/${pkgname}
+    cp -R usr ${pkgdir}
+    cd ${pkgdir}/usr/lib/linuxmint/mintMenu
+    ./compile.py
+}
+
