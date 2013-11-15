@@ -1,10 +1,11 @@
 # Contributor: Giovanni Ricciardi <kar98k.sniper@gmail.com>
 # Contributor: Xpander <xpander0@gmail.com>
 # Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Piotr Gorski <sir_lucjan@bridgelinux.pl>
 
 pkgname=mate-session-manager
-pkgver=1.6.1
-pkgrel=8
+pkgver=1.7.0
+pkgrel=1
 pkgdesc="The MATE Session Handler"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
@@ -16,12 +17,16 @@ depends=('dbus' 'desktop-file-utils' 'gobject-introspection' 'gtk2' 'libice'
 makedepends=('mate-common' 'perl-xml-parser' 'xmlto')
 options=('!emptydirs' '!libtool')
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz
-        f0b5b1ab78879d64f80117415aacf029359afea5.diff
-        e934e91226e9a93956121c9c84ecf3664fcd68be.diff)
-sha1sums=('46188f6c02cc5978688af9d5db4be09f1b9199a5'
-          '20fb99c29731d05191cd0029d0573db784b06ccf'
-          '4312495bcd12ca5a20f7d5442b7517902605534c')
+source=(http://pub.mate-desktop.org/releases/1.7/${pkgname}-${pkgver}.tar.xz
+        'f0b5b1ab78879d64f80117415aacf029359afea5.diff'
+         'e934e91226e9a93956121c9c84ecf3664fcd68be.diff')
+        
+sha1sums=('c86bca622c4dbcf3dac56db7da9f7511c79d33f5'
+          '3cbecf45b41ccc8414b0757e103d80a22c12cf1a'
+          '25a7d03600e19201a6838e833362a9dc873a3158')
+
+
+
 install=${pkgname}.install
 
 build() {
@@ -30,10 +35,7 @@ build() {
     # https://github.com/mate-desktop/mate-session-manager/commit/f0b5b1ab78879d64f80117415aacf029359afea5
     patch -Np1 -i ${srcdir}/f0b5b1ab78879d64f80117415aacf029359afea5.diff
 
-    # Make upower optional    
-    # https://github.com/mate-desktop/mate-session-manager/commit/e934e91226e9a93956121c9c84ecf3664fcd68be
-    patch -Np1 -i ${srcdir}/e934e91226e9a93956121c9c84ecf3664fcd68be.diff
-
+    
     # Recreate the build system because configure.ac was patched.
     autoreconf -fi
 

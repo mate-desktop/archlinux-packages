@@ -1,47 +1,42 @@
-# Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
+# Contributor: Giovanni Ricciardi <kar98k.sniper@gmail.com>
 # Contributor: Xpander <xpander0@gmail.com>
 # Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Piotr Gorski <sir_lucjan@bridgelinux.pl>
 
-_pkgname=mate-media
+_pkgname=mate-settings-daemon
 pkgname=${_pkgname}-gstreamer
-pkgver=1.6.0
-pkgrel=4
-pkgdesc="MATE Media Tools (GStreamer)"
+pkgver=1.7.0
+pkgrel=1
+pkgdesc="The MATE Settings daemon (GStreamer)"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('GPL')
-depends=('desktop-file-utils' 'gstreamer0.10-base-plugins' 'libnotify'
-         'mate-panel' 'mate-settings-daemon-gstreamer')
-makedepends=('mate-doc-utils' 'mate-settings-daemon' 'mate-icon-theme' 'perl-xml-parser')
+depends=('dbus' 'dconf' 'fontconfig' 'gstreamer0.10-base-plugins' 'gtk2'
+         'libcanberra' 'libcanberra-gstreamer' 'libmatekbd' 'libnotify'
+         'libxt' 'mate-desktop' 'mate-polkit' 'startup-notification')
+makedepends=('mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
-conflicts=("${_pkgname}-pulseaudio" 'mate-settings-daemon-pulseaudio')
+conflicts=("${_pkgname}-pulseaudio" 'mate-media-pulseaudio')
 provides=("${_pkgname}")
-source=(http://pub.mate-desktop.org/releases/1.6/${_pkgname}-${pkgver}.tar.xz
-        enable_deprecated.diff)
-sha1sums=('06c3418dfe0be26e74b0e40aa92eea6260579a72'
-          'f0e38578aacacf9ee852b7a44a34908cc230b91f')
+source=(http://pub.mate-desktop.org/releases/1.7/${_pkgname}-${pkgver}.tar.xz)
+sha1sums=('32730c0c5ca20d41f11390a154875a1220d9ba9c')
 install=${pkgname}.install
 
 build() {
     cd ${srcdir}/${_pkgname}-${pkgver}
-
-    # Enable deprecated
-    patch -p1 < ../../enable_deprecated.diff gst-mixer/src/Makefile.am
-
-	./autogen.sh \
+    ./configure \
         --prefix=/usr \
+        --libexecdir=/usr/lib/${_pkgname} \
         --sysconfdir=/etc \
-		--libexecdir=/usr/lib/${_pkgname} \
-		--localstatedir=/var \
-		--enable-gstmix \
-		--enable-gst-mixer-applet \
-		--disable-pulseaudio \
-		--disable-static \
-		--disable-scrollkeeper
-	make
+        --enable-polkit \
+        --enable-gstreamer \
+        --disable-pulse \
+        --disable-static
+    make
 }
 
 package() {
     cd ${srcdir}/${_pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
 }
+

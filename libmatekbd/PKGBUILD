@@ -1,9 +1,10 @@
 # Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 # Contributor: Xpander <xpander0@gmail.com>
 # Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Piotr Gorski <sir_lucjan@bridgelinux.pl>
 
 pkgname=libmatekbd
-pkgver=1.6.1
+pkgver=1.7.1
 pkgrel=2
 pkgdesc="MATE keyboard library"
 url="http://mate-desktop.org"
@@ -13,8 +14,8 @@ depends=('gtk2' 'iso-codes' 'libxklavier')
 makedepends=('mate-common' 'perl-xml-parser')
 options=('!emptydirs' '!libtool')
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
-sha1sums=('2d2237b404d3b9687019cb3e69a0ae553b901a4a')
+source=(http://pub.mate-desktop.org/releases/1.7/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('f1611ba217dd755af26ce1f9ab6cfb58efb8f525')
 install=${pkgname}.install
 
 build() {

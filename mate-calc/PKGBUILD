@@ -1,20 +1,22 @@
 # Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 # Contributor: Xpander <xpander0@gmail.com>
 # Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Piotr Gorski <sir_lucjan@bridgelinux.pl>
 
 pkgname=mate-calc
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=2
 pkgdesc="Calculator for the Mate desktop environment"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 license=('LGPL' 'GPL')
 depends=('desktop-file-utils' 'gtk2')
-makedepends=('flex' 'bison' 'mate-common' 'mate-doc-utils' 'perl-xml-parser')
+makedepends=('flex' 'bison' 'mate-common' 'mate-doc-utils' 'perl-xml-parser' 'yelp-tools')
 options=('!emptydirs' '!libtool')
 groups=('mate-extras')
-source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
-sha1sums=('c793118595cd370ccca9875880e0e6760f6c5a08')
+source=(http://pub.mate-desktop.org/releases/1.7/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('36944008b3e662b8f32602a6fdfe9f0d371053e3')
+
 install=${pkgname}.install
 
 build() {
@@ -28,3 +30,4 @@ package() {
     cd ${srcdir}/${pkgname}-${pkgver}
     make DESTDIR="${pkgdir}" install
 }
+

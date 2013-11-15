@@ -1,10 +1,11 @@
 # Contributor: Giovanni "Talorno" Ricciardi <kar98k.sniper@gmail.com>
 # Contributor: Xpander <xpander0@gmail.com>
 # Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Piotr Gorski <sir_lucjan@bridgelinux.pl>
 
 pkgname=mate-icon-theme
-pkgver=1.6.2
-pkgrel=3
+pkgver=1.7.0
+pkgrel=1
 pkgdesc="MATE icon theme"
 url="http://mate-desktop.org"
 arch=('any')
@@ -13,8 +14,8 @@ depends=('hicolor-icon-theme' 'gtk2' 'librsvg')
 makedepends=('icon-naming-utils' 'mate-common' 'perl-xml-parser')
 options=(!strip)
 groups=('mate')
-source=(http://pub.mate-desktop.org/releases/1.6/${pkgname}-${pkgver}.tar.xz)
-sha1sums=('28a7fb3236162d8154015bdd71da1e4e26a14412')
+source=(http://pub.mate-desktop.org/releases/1.7/${pkgname}-${pkgver}.tar.xz)
+sha1sums=('8ffc0026aa5570a1ddf31d214fa583ce0c708bdc')
 install=${pkgname}.install
 
 build() {
