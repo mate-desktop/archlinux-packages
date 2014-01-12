@@ -2,10 +2,11 @@
 # Contributor: Giuseppe Borzi <gborzi _AT_ ieee _DOT_ org>
 # Contributor: ryooichi <ryooichi+arch AT gmail DOT com>
 # Contributor: Martin Wimpress <code@flexion.org>
+# Contributor: Piotr Gorski <sir_lucjan@bridgelinux.pl>
 
 pkgname=mintmenu
-pkgver=5.4.9
-pkgrel=4
+pkgver=5.5.0
+pkgrel=1
 pkgdesc="Linux Mint Menu for MATE"
 arch=('i686' 'x86_64' 'armv6h' 'armv7h')
 url="http://packages.linuxmint.com/pool/main/m/mintmenu"
@@ -18,7 +19,8 @@ optdepends=('mate-menu-editor: for editing the gnome menu'
 groups=('mate-extras-community')
 source=("${url}/${pkgname}_${pkgver}.tar.gz")
 install=${pkgname}.install
-md5sums=('39826a17c8de746ad119208588be2ec2')
+md5sums=('f0fb89b3ee64fec60ccd697266a0d6ac')
+
 
 
 build() {
