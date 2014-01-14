@@ -2,10 +2,10 @@
 # Naintainer: Piotr Gorski <sir_lucjan@openlinux.pl>
 pkgname=mate-panel
 pkgver=1.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc="The MATE Panel"
 url="http://mate-desktop.org"
-arch=('i686' 'x86_64')
+arch=('i686' 'x86_64''armv6h' 'armv7h' )
 license=('GPL')
 depends=('caja' 'dbus-glib' 'dconf' 'gtk2' 'libwnck' 'libcanberra' 'libice'
          'libmateweather' 'librsvg' 'libsm' 'libsoup' 'libxau' 'marco'
