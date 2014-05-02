@@ -3,7 +3,7 @@
 _ver=1.9.0
 _pkgname=python-caja
 pkgname=python2-caja
-pkgver=0
+pkgver=1.9.0.20140502.b78ab50
 pkgrel=1
 pkgdesc="Python binding for Caja, to allow Caja property page and menu item extensions to be written in Python."
 url="http://mate-desktop.org"
@@ -27,6 +27,8 @@ prepare() {
 
 build() {
     cd "${srcdir}/${pkgname}"
+	#this is extremely ugly. Someone please provide a REAL fix
+	patch < ../../configure_arch_patch.patch
     PYTHON=/usr/bin/python2 ./configure \
         --prefix=/usr \
         --disable-static

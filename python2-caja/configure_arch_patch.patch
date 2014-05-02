@@ -1,0 +1,30 @@
+--- configure	2014-03-01 15:35:36.000000000 +0100
++++ configure	2014-05-02 15:54:25.328483404 +0200
+@@ -12260,25 +12260,8 @@
+ py_exec_prefix=`$PYTHON -c "import sys; print(sys.exec_prefix)"`
+ 
+                   enable_lib64="yes"
+-  libdirsuffix="/i386-linux-gnu/"
+-  searchpath=`(LC_ALL=C $CC -print-search-dirs) 2>/dev/null | sed -n -e 's,^libraries: ,,p' | sed -e 's,^=,,'`
+-  if test "$enable_lib64" = "yes" -a -n "$searchpath"; then
+-    save_IFS="${IFS=    }"; IFS=":"
+-    for searchdir in $searchpath; do
+-      if test -d "$searchdir"; then
+-        case "$searchdir" in
+-          */lib64/ | */lib64 ) libdirsuffix=64 ;;
+-          /lib/x86_64-linux-gnu/ | /lib/x86_64-linux-gnu ) libdirsuffix=/x86_64-linux-gnu ;;
+-          *) searchdir=`cd "$searchdir" && pwd`
+-             case "$searchdir" in
+-               */lib64 ) libdirsuffix=64 ;;
+-               /lib/x86_64-linux-gnu ) libdirsuffix=/x86_64-linux-gnu ;;
+-             esac ;;
+-        esac
+-      fi
+-    done
+-    IFS="$save_IFS"
+-  fi
++  libdirsuffix="64"
++
+ 
+ 
+ 
