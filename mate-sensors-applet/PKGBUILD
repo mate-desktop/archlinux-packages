@@ -9,9 +9,8 @@ pkgdesc="A MATE Panel applet to display readings from hardware sensors, includin
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('dbus' 'gtk2' 'libatasmart' 'libnotify' 'libxnvctrl' 'lm_sensors'
-         'mate-panel>=1.9.4')
-makedepends=('git' 'docbook-xml' 'mate-common' 'rarian' 'yelp-tools')
+depends=('dbus' 'gtk2' 'libatasmart' 'libnotify' 'lm_sensors' 'mate-panel>=1.9.4')
+makedepends=('git' 'docbook-xml' 'libxnvctrl' 'mate-common' 'rarian' 'yelp-tools')
 optdepends=('yelp: for reading MATE help documents')
 groups=('mate-unstable-extra')
 conflicts=("${pkgbase}-gtk3")

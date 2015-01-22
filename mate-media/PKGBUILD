@@ -9,7 +9,7 @@ url="http://mate-desktop.org"
 pkgdesc="MATE Media Tools  (GTK2 version)"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('gtk2' 'libcanberra-pulse' 'libmatemixer' 'libunique' 'marco>=1.9.3' 'mate-desktop>=1.9.3')
+depends=('gtk2' 'libcanberra-pulse' 'libmatemixer' 'libunique' 'mate-desktop>=1.9.3')
 makedepends=('git' 'mate-common' 'mate-panel>=1.9.4' 'mate-settings-daemon>=1.9.5')
 source=("${pkgbase}"::"git+https://github.com/mate-desktop/${pkgbase}.git")
 groups=('mate-unstable-extra')

@@ -9,9 +9,10 @@ pkgdesc="Archive manipulator for MATE (GTK2 version)"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('bzip2' 'caja>=1.9.3' 'desktop-file-utils' 'gtk2' 'gzip' 'libarchive' 'tar')
-makedepends=('git' 'mate-common' 'yelp-tools')
-optdepends=('unrar: for RAR uncompression'
+depends=('bzip2' 'desktop-file-utils' 'gtk2' 'gzip' 'libarchive' 'tar')
+makedepends=('caja>=1.9.3' 'git' 'mate-common' 'yelp-tools')
+optdepends=('caja: file archiver extension'
+            'unrar: for RAR uncompression'
             'zip: for ZIP archives' 'unzip: for ZIP archives'
             'p7zip: 7zip compression utility' 'arj: for ARJ archives'
             'unace: extraction tool for the proprietary ace archive format'

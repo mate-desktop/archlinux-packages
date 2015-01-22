@@ -10,9 +10,9 @@ url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('dbus' 'desktop-file-utils' 'exempi' 'gtk3' 'gvfs' 'libexif' 'libunique3'
-         'libxt' 'mate-desktop-gtk3>=1.9.3' 'mate-icon-theme' 'pangox-compat' 'startup-notification')
-makedepends=('git' 'gobject-introspection' 'mate-common')
-optdepends=('gstreamer0.10-good-plugins: automatic media playback when mouseover'
+         'libxt' 'mate-desktop-gtk3>=1.9.3' 'mate-icon-theme' 'startup-notification')
+makedepends=('git' 'gobject-introspection' 'mate-common' 'pangox-compat')
+optdepends=('gstreamer: automatic media playback when mouseover'
             'gvfs-smb: To connect to Samba/Windows shares')
 groups=('mate-unstable-gtk3')
 conflicts=("${pkgbase}")
