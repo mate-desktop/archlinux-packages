@@ -9,7 +9,7 @@ pkgdesc="The Control Center for MATE (GTK3 version [EXPERIMENTAL])"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('caja-gtk3>=1.9.3' 'dbus-glib' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas'
+depends=('dbus-glib' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas'
          'gtk3' 'mate-desktop-gtk3>=1.9.3' 'mate-icon-theme' 'mate-menus>=1.9.1' 'mate-settings-daemon-gtk3>=1.9.5'
          'marco-gtk3>=1.9.3' 'libgtop' 'libmatekbd-gtk3>=1.9.1' 'libunique3' 'librsvg' 'libxss'
          'libxt' 'startup-notification')

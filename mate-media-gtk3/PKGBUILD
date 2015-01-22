@@ -9,8 +9,7 @@ url="http://mate-desktop.org"
 pkgdesc="MATE Media Tools (GTK3 version [EXPERIMENTAL])"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('gtk3' 'libcanberra-pulse' 'libmatemixer' 'libunique3' 'marco-gtk3>=1.9.3'
-         'mate-desktop-gtk3>=1.9.3')
+depends=('gtk3' 'libcanberra-pulse' 'libmatemixer' 'libunique3' 'mate-desktop-gtk3>=1.9.3')
 makedepends=('git' 'mate-common' 'mate-panel-gtk3>=1.9.4' 'mate-settings-daemon-gtk3>=1.9.5')
 source=("${pkgbase}"::"git+https://github.com/mate-desktop/${pkgbase}.git")
 groups=('mate-unstable-extra-gtk3')

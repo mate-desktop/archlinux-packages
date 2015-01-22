@@ -9,7 +9,7 @@ pkgdesc="The Control Center for MATE (GTK2 version)"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('caja>=1.9.3' 'dbus-glib' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas'
+depends=('dbus-glib' 'dconf' 'desktop-file-utils' 'gsettings-desktop-schemas'
          'gtk2' 'mate-desktop>=1.9.3' 'mate-icon-theme' 'mate-menus>=1.9.1' 'mate-settings-daemon>=1.9.5'
          'marco>=1.9.3' 'libgtop' 'libmatekbd>=1.9.1' 'libunique' 'librsvg' 'libxss'
          'libxt' 'startup-notification')

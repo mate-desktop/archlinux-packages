@@ -9,9 +9,9 @@ pkgdesc="The MATE Panel (GTK2 version)"
 url="http://mate-desktop.org"
 arch=('i686' 'x86_64')
 license=('GPL')
-depends=('caja>=1.9.3' 'dbus-glib' 'dconf' 'gtk2' 'libwnck' 'libcanberra' 'libice'
-         'libmateweather>=1.9.1' 'librsvg' 'libsm' 'libsoup' 'libxau' 'marco>=1.9.3'
-         'mate-menus>=1.9.1' 'mate-desktop>=1.9.3' 'mate-session-manager>=1.9.3')
+depends=('dbus-glib' 'dconf' 'gtk2' 'libwnck' 'libcanberra' 'libice'
+         'libmateweather>=1.9.1' 'librsvg' 'libsm' 'libsoup' 'libxau'
+         'mate-menus>=1.9.1' 'mate-desktop>=1.9.3')
 makedepends=('git' 'gobject-introspection' 'mate-common' 'yelp-tools')
 optdepends=('yelp: for reading MATE help documents')
 source=("${pkgbase}"::"git+https://github.com/mate-desktop/${pkgbase}.git")
